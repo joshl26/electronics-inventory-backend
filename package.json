@@ -1,7 +1,7 @@
 {
-  "name": "backend",
-  "version": "1.0.0",
-  "description": "Authentication and Authorization",
+  "name": "electronicsinventorybackend",
+  "version": "0.0.1",
+  "description": "pre release demo version",
   "main": "server.js",
   "scripts": {
     "start": "node server",
