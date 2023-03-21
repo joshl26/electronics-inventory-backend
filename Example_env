@@ -1,0 +1,6 @@
+//rename this file to .env and delete this line of text
+
+NODE_ENV=development
+DATABASE_URI=mongodb+srv://XXXXX:XXXXXX@XXXXX.XXXXXX.mongodb.net/xxxxxxxx?retryWrites=true&w=majority
+ACCESS_TOKEN_SECRET=YOUR ACCESS TOKEN
+REFRESH_TOKEN_SECRET=YOUR REFRESH TOKEN

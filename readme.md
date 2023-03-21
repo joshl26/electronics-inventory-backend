@@ -15,25 +15,21 @@
 </p>
 
 > pre release demo version
-> 
 
 ### 🏠 [Homepage](https://github.com/joshl26/electronics-inventory-backend-react#readme)
 
-
-
 ## Prerequisites
 
-
 - npm >=8.0.0
-  
 - node >=17.0.0
-      
+
 ## Install
+
+Rename Example_env to .env and update with your own secret keys and Mongo DB credentials
 
 ```sh
 npm install
 ```
-
 
 ## Usage
 
@@ -41,22 +37,22 @@ npm install
 node server
 ```
 
-
-
 ## Author
+
 👤 **Joshua Lehman**
 
 ## Portfolio
-- https://joshlehman.ca 
 
-## Github  
-- [@joshl26](https://github.com/joshl26)  
-  
- ## LinkedIn 
+- https://joshlehman.ca
+
+## Github
+
+- [@joshl26](https://github.com/joshl26)
+
+## LinkedIn
+
 - [@jlehmaneng](https://linkedin.com/in/jlehmaneng)
-  
-  
-  
+
 ## 🤝 Contributing
 
 Contributions, issues and feature requests are welcome!<br />Feel free to check [issues page](https://github.com/joshl26/electronics-inventory-backend-react/issues). You can also take a look at the [contributing guide](https://github.com/joshl26/electronics-inventory-backend-react/blob/master/CONTRIBUTING.md).
@@ -71,5 +67,3 @@ Copyright © 2023 [Joshua Lehman](https://github.com/joshl26).<br />
 This project is [ISC](https://github.com/joshl26/electronics-inventory-backend-react/blob/master/LICENSE) licensed.
 
 ---
-
-
