@@ -1,7 +1,21 @@
 {
-  "name": "electronicsinventorybackend",
+  "name": "electronics_inventory_backend",
   "version": "0.0.1",
   "description": "pre release demo version",
+  "packageManager": "^pnpm@6.32.4",
+  "homepage": "https://github.com/joshl26/electronics-inventory-backend-react#readme",
+  "demo": "https://github.com/joshl26/electronics-inventory-backend-react",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/joshl26/electronics-inventory-backend-react.git"
+  },
+  "bugs": {
+    "url": "https://github.com/joshl26/electronics-inventory-backend-react/issues"
+  },
+  "engines": {
+    "npm": ">=8.0.0",
+    "node": ">=17.0.0"
+  },
   "main": "server.js",
   "scripts": {
     "start": "node server",
