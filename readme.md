@@ -25,7 +25,9 @@
 
 ## Install
 
+```sh
 Rename Example_env to .env and update with your own secret keys and Mongo DB credentials
+```
 
 ```sh
 npm install
