@@ -8,6 +8,8 @@ const getAllNotes = async (req, res) => {
   // Get all notes from MongoDB
   const notes = await Note.find().lean();
 
+  console.log("Get all notes");
+
   // If no notes
   if (!notes?.length) {
     return res.status(400).json({ message: "No notes found" });

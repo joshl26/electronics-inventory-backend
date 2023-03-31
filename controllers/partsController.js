@@ -8,6 +8,10 @@ const getAllParts = async (req, res) => {
   // Get all parts from MongoDB
   const parts = await Part.find().lean();
 
+  console.log(req);
+  console.log(parts);
+  console.log("Get all parts");
+
   // If no parts
   if (!parts?.length) {
     return res.status(400).json({ message: "No parts found" });
@@ -22,7 +26,7 @@ const getAllParts = async (req, res) => {
       return { ...part, username: user.username };
     })
   );
-
+  console.log(partsWithUser);
   res.json(partsWithUser);
 };
 
