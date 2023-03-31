@@ -8,11 +8,11 @@ const partSchema = new mongoose.Schema(
       required: true,
       ref: "User",
     },
-    title: {
+    name: {
       type: String,
       required: true,
     },
-    text: {
+    description: {
       type: String,
       required: true,
     },

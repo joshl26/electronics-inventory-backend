@@ -8,9 +8,9 @@ const getAllParts = async (req, res) => {
   // Get all parts from MongoDB
   const parts = await Part.find().lean();
 
-  console.log(req);
-  console.log(parts);
-  console.log("Get all parts");
+  // console.log(req);
+  // console.log(parts);
+  // console.log("Get all parts");
 
   // If no parts
   if (!parts?.length) {
@@ -26,7 +26,7 @@ const getAllParts = async (req, res) => {
       return { ...part, username: user.username };
     })
   );
-  console.log(partsWithUser);
+  // console.log(partsWithUser);
   res.json(partsWithUser);
 };
 
@@ -36,25 +36,25 @@ const getAllParts = async (req, res) => {
 const createNewPart = async (req, res) => {
   console.log("Create new part");
 
-  const { user, title, text, qty, partType } = req.body;
+  const { user, name, description, qty, partType } = req.body;
 
   // Confirm data
-  if (!user || !title || !text) {
+  if (!user || !name || !description) {
     return res.status(400).json({ message: "All fields are required" });
   }
 
-  // Check for duplicate title
-  const duplicate = await Part.findOne({ title })
+  // Check for duplicate name
+  const duplicate = await Part.findOne({ name })
     .collation({ locale: "en", strength: 2 })
     .lean()
     .exec();
 
   if (duplicate) {
-    return res.status(409).json({ message: "Duplicate part title" });
+    return res.status(409).json({ message: "Duplicate part name" });
   }
 
   // Create and store the new user
-  const part = await Part.create({ user, title, text, qty, partType });
+  const part = await Part.create({ user, name, description, qty, partType });
 
   if (part) {
     // Created
@@ -68,18 +68,10 @@ const createNewPart = async (req, res) => {
 // @route PATCH /parts
 // @access Private
 const updatePart = async (req, res) => {
-  const { id, user, title, text, qty, partType, completed } = req.body;
+  const { id, user, name, description, qty, partType } = req.body;
 
   // Confirm data
-  if (
-    !id ||
-    !user ||
-    !title ||
-    !text ||
-    !qty ||
-    !partType ||
-    typeof completed !== "boolean"
-  ) {
+  if (!id || !user || !name || !description || !qty || !partType) {
     return res.status(400).json({ message: "All fields are required" });
   }
 
@@ -90,25 +82,24 @@ const updatePart = async (req, res) => {
     return res.status(400).json({ message: "Part not found" });
   }
 
-  // Check for duplicate title
-  const duplicate = await Part.findOne({ title })
+  // Check for duplicate name
+  const duplicate = await Part.findOne({ name })
     .collation({ locale: "en", strength: 2 })
     .lean()
     .exec();
 
   // Allow renaming of the original part
   if (duplicate && duplicate?._id.toString() !== id) {
-    return res.status(409).json({ message: "Duplicate part title" });
+    return res.status(409).json({ message: "Duplicate part name" });
   }
 
   part.user = user;
-  part.title = title;
-  part.text = text;
-  part.completed = completed;
+  part.name = name;
+  part.description = description;
 
   const updatedPart = await part.save();
 
-  res.json(`'${updatedPart.title}' updated`);
+  res.json(`'${updatedPart.name}' updated`);
 };
 
 // @desc Delete a part
@@ -131,7 +122,7 @@ const deletePart = async (req, res) => {
 
   const result = await part.deleteOne();
 
-  const reply = `Part '${result.title}' with ID ${result._id} deleted`;
+  const reply = `Part '${result.name}' with ID ${result._id} deleted`;
 
   res.json(reply);
 };
