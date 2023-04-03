@@ -70,6 +70,8 @@ const createNewPart = async (req, res) => {
 const updatePart = async (req, res) => {
   const { id, user, name, description, qty, partType } = req.body;
 
+  console.log("Update Part");
+
   // Confirm data
   if (!id || !user || !name || !description || !qty || !partType) {
     return res.status(400).json({ message: "All fields are required" });
@@ -77,6 +79,8 @@ const updatePart = async (req, res) => {
 
   // Confirm part exists to update
   const part = await Part.findById(id).exec();
+
+  console.log(part);
 
   if (!part) {
     return res.status(400).json({ message: "Part not found" });
