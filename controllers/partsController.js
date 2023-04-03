@@ -34,7 +34,7 @@ const getAllParts = async (req, res) => {
 // @route POST /parts
 // @access Private
 const createNewPart = async (req, res) => {
-  console.log("Create new part");
+  // console.log("Create new part");
 
   const { user, name, description, qty, partType } = req.body;
 
@@ -70,13 +70,13 @@ const createNewPart = async (req, res) => {
 const updatePart = async (req, res) => {
   const { id, user, name, description, qty, partType } = req.body;
 
-  console.log("Update Part with following data:");
-  console.log(id);
-  console.log(user);
-  console.log(name);
-  console.log(description);
-  console.log(qty);
-  console.log(partType);
+  // console.log("Update Part with following data:");
+  // console.log(id);
+  // console.log(user);
+  // console.log(name);
+  // console.log(description);
+  // console.log(qty);
+  // console.log(partType);
 
   // Confirm data
   if (!id || !user || !name || !description || !qty || !partType) {
@@ -86,7 +86,7 @@ const updatePart = async (req, res) => {
   // Confirm part exists to update
   const part = await Part.findById(id).exec();
 
-  console.log(part);
+  // console.log(part);
 
   if (!part) {
     return res.status(400).json({ message: "Part not found" });
@@ -111,7 +111,7 @@ const updatePart = async (req, res) => {
 
   const updatedPart = await part.save();
 
-  console.log(updatedPart);
+  // console.log(updatedPart);
 
   res.json(`'${updatedPart.name}' updated`);
 };

@@ -8,7 +8,7 @@ const getAllNotes = async (req, res) => {
   // Get all notes from MongoDB
   const notes = await Note.find().lean();
 
-  console.log("Get all notes");
+  // console.log("Get all notes");
 
   // If no notes
   if (!notes?.length) {
@@ -34,7 +34,7 @@ const getAllNotes = async (req, res) => {
 const createNewNote = async (req, res) => {
   const { user, title, text } = req.body;
 
-  console.log(req.body);
+  // console.log(req.body);
 
   // Confirm data
   if (!user || !title || !text) {
