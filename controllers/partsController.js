@@ -70,7 +70,13 @@ const createNewPart = async (req, res) => {
 const updatePart = async (req, res) => {
   const { id, user, name, description, qty, partType } = req.body;
 
-  console.log("Update Part");
+  console.log("Update Part with following data:");
+  console.log(id);
+  console.log(user);
+  console.log(name);
+  console.log(description);
+  console.log(qty);
+  console.log(partType);
 
   // Confirm data
   if (!id || !user || !name || !description || !qty || !partType) {
@@ -100,8 +106,12 @@ const updatePart = async (req, res) => {
   part.user = user;
   part.name = name;
   part.description = description;
+  part.qty = qty;
+  part.partType = partType;
 
   const updatedPart = await part.save();
+
+  console.log(updatedPart);
 
   res.json(`'${updatedPart.name}' updated`);
 };
