@@ -45,6 +45,11 @@ const partSchema = new mongoose.Schema(
       default: "",
       required: false,
     },
+    lotId: {
+      type: String,
+      default: "",
+      required: false,
+    },
     serialNumber: {
       type: String,
       default: "",
@@ -61,7 +66,7 @@ const partSchema = new mongoose.Schema(
       required: false,
     },
     updatedBy: {
-      type: mongoose.Schema.Types.ObjectId,
+      type: String,
       required: false,
       ref: "User",
     },

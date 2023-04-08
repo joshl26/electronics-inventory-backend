@@ -69,6 +69,7 @@ const createNewPart = async (req, res) => {
 // @route PATCH /parts
 // @access Private
 const updatePart = async (req, res) => {
+  console.log(req.body);
   const { id, user, name, description, qty, partType } = req.body;
 
   // console.log("Update Part with following data:");
