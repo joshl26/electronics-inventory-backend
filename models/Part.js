@@ -76,8 +76,8 @@ const partSchema = new mongoose.Schema(
       required: false,
     },
     backOrder: {
-      type: String,
-      default: "",
+      type: Number,
+      default: 0,
       required: false,
     },
   },
