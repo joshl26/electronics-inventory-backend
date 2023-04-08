@@ -1,5 +1,5 @@
 const Part = require("../models/Part");
-const User = require("../models/User");
+// const User = require("../models/User");
 
 // @desc Get all parts
 // @route GET /parts
@@ -20,14 +20,15 @@ const getAllParts = async (req, res) => {
   // Add username to each part before sending the response
   // See Promise.all with map() here: https://youtu.be/4lqJBBEpjRE
   // You could also do this with a for...of loop
-  const partsWithUser = await Promise.all(
-    parts.map(async (part) => {
-      const user = await User.findById(part.user).lean().exec();
-      return { ...part, username: user.username };
-    })
-  );
+  // const partsWithUser = await Promise.all(
+  //   parts.map(async (part) => {
+  //     const user = await User.findById(part.user).lean().exec();
+  //     return { ...part, username: user.username };
+  //   })
+  // );
   // console.log(partsWithUser);
-  res.json(partsWithUser);
+  // res.json(partsWithUser);
+  res.json(parts);
 };
 
 // @desc Create new part

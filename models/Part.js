@@ -25,9 +25,59 @@ const partSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    images: {
+      type: Array,
+      default: [],
+      required: false,
+    },
+    partLocation: {
+      type: String,
+      default: "",
+      required: false,
+    },
+    partPackage: {
+      type: String,
+      default: "",
+      required: false,
+    },
+    partNumber: {
+      type: String,
+      default: "",
+      required: false,
+    },
+    serialNumber: {
+      type: String,
+      default: "",
+      required: false,
+    },
+    manufacturer: {
+      type: String,
+      default: "",
+      required: false,
+    },
+    vendorName: {
+      type: String,
+      default: "",
+      required: false,
+    },
+    updatedBy: {
+      type: mongoose.Schema.Types.ObjectId,
+      required: false,
+      ref: "User",
+    },
+    mfgDate: {
+      type: String,
+      default: "",
+      required: false,
+    },
+    backOrder: {
+      type: String,
+      default: "",
+      required: false,
+    },
   },
   {
-    timestamps: true,
+    timestamps: true, //Adds createdAt and updatedAt timestamp fields to part record
   }
 );
 
