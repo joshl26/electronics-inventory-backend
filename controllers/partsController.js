@@ -69,7 +69,24 @@ const createNewPart = async (req, res) => {
 // @access Private
 const updatePart = async (req, res) => {
   console.log(req.body);
-  const { id, user, name, description, qty, partType } = req.body;
+  const {
+    id,
+    user,
+    name,
+    description,
+    qty,
+    partType,
+    backOrder,
+    updatedBy,
+    partNumber,
+    lotId,
+    serialNumber,
+    manufacturer,
+    mfgDate,
+    vendorName,
+    partPackage,
+    partLocation,
+  } = req.body;
 
   // console.log("Update Part with following data:");
   // console.log(id);
@@ -109,6 +126,16 @@ const updatePart = async (req, res) => {
   part.description = description;
   part.qty = qty;
   part.partType = partType;
+  part.backOrder = backOrder;
+  part.updatedBy = updatedBy;
+  part.partNumber = partNumber;
+  part.lotId = lotId;
+  part.serialNumber = serialNumber;
+  part.manufacturer = manufacturer;
+  part.mfgDate = mfgDate;
+  part.vendorName = vendorName;
+  part.partPackage = partPackage;
+  part.partLocation = partLocation;
 
   const updatedPart = await part.save();
 
