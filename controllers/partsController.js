@@ -1,5 +1,6 @@
 const Part = require("../models/Part");
 const User = require("../models/User");
+const { cloudinary } = require("../cloudinary");
 
 // @desc Get all parts
 // @route GET /parts
@@ -68,7 +69,7 @@ const createNewPart = async (req, res) => {
 // @route PATCH /parts
 // @access Private
 const updatePart = async (req, res) => {
-  console.log(req.body);
+  console.log(req);
   const {
     id,
     user,
@@ -78,6 +79,9 @@ const updatePart = async (req, res) => {
     partType,
     backOrder,
     updatedBy,
+    images,
+    newImages,
+    deleteImages,
     partNumber,
     lotId,
     serialNumber,
@@ -95,6 +99,7 @@ const updatePart = async (req, res) => {
   // console.log(description);
   // console.log(qty);
   // console.log(partType);
+  console.log(newImages);
 
   // Confirm data
   if (!id || !user || !name || !description || !qty || !partType) {
@@ -169,9 +174,14 @@ const deletePart = async (req, res) => {
   res.json(reply);
 };
 
+const addImage = async (req, res) => {
+  console.log("ADD IMAGE");
+};
+
 module.exports = {
   getAllParts,
   createNewPart,
   updatePart,
   deletePart,
+  addImage,
 };

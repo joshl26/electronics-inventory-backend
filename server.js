@@ -13,6 +13,33 @@ const PORT = process.env.PORT || 3500;
 
 mongoose.set("strictQuery", false);
 
+const cloudinary = require("cloudinary").v2;
+const Multer = require("multer");
+
+cloudinary.config({
+  cloud_name: "dv6keahg3",
+  api_key: "352394212659861",
+  api_secret: "isdfykrP_KuNXZz8oHx0Tzd6lCY",
+});
+
+console.log(cloudinary.config().cloud_name);
+console.log(cloudinary.config().api_key);
+console.log(cloudinary.config().api_secret);
+
+const storage = new Multer.memoryStorage();
+const upload = Multer({
+  storage,
+});
+
+async function handleUpload(file) {
+  const res = await cloudinary.uploader.upload(file, {
+    resource_type: "image",
+    folder: "ElectronicsInventory",
+    use_filename: true,
+  });
+  return res;
+}
+
 console.log(process.env.NODE_ENV);
 
 connectDB();
@@ -29,10 +56,23 @@ app.use("/", express.static(path.join(__dirname, "public")));
 
 app.use("/", require("./routes/root"));
 app.use("/auth", require("./routes/authRoutes"));
-
-app.use("/users", require("./routes/userRoutes"));
 app.use("/parts", require("./routes/partRoutes"));
 app.use("/notes", require("./routes/noteRoutes"));
+app.use("/users", require("./routes/userRoutes"));
+
+app.post("/parts/upload", upload.single("my_file"), async (req, res) => {
+  try {
+    const b64 = Buffer.from(req.file.buffer).toString("base64");
+    let dataURI = "data:" + req.file.mimetype + ";base64," + b64;
+    const cldRes = await handleUpload(dataURI);
+    res.json(cldRes);
+  } catch (error) {
+    console.log(error);
+    res.send({
+      message: error.message,
+    });
+  }
+});
 
 app.all("*", (req, res) => {
   res.status(404);
