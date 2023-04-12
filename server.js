@@ -9,6 +9,7 @@ const cors = require("cors");
 const corsOptions = require("./config/corsOptions");
 const connectDB = require("./config/dbConn");
 const mongoose = require("mongoose");
+const partsController = require("./controllers/partsController");
 const PORT = process.env.PORT || 3500;
 
 mongoose.set("strictQuery", false);
@@ -34,6 +35,7 @@ const upload = Multer({
 async function handleUpload(file) {
   const res = await cloudinary.uploader.upload(file, {
     resource_type: "image",
+    allowedFormats: ["jpeg", "png", "jpg"],
     folder: "ElectronicsInventory",
     use_filename: true,
   });
@@ -67,6 +69,7 @@ app.post("/parts/upload", upload.single("my_file"), async (req, res) => {
     let dataURI = "data:" + req.file.mimetype + ";base64," + b64;
     const cldRes = await handleUpload(dataURI);
     res.json(cldRes);
+    partsController.addImage;
   } catch (error) {
     console.log(error);
     res.send({

@@ -30,6 +30,11 @@ const partSchema = new mongoose.Schema(
       default: [],
       required: false,
     },
+    deletedImages: {
+      type: Array,
+      default: [],
+      required: false,
+    },
     partLocation: {
       type: String,
       default: "",

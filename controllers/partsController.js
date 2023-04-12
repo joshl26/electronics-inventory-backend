@@ -81,7 +81,7 @@ const updatePart = async (req, res) => {
     updatedBy,
     images,
     newImages,
-    deleteImages,
+    deletedImages,
     partNumber,
     lotId,
     serialNumber,
@@ -141,6 +141,8 @@ const updatePart = async (req, res) => {
   part.vendorName = vendorName;
   part.partPackage = partPackage;
   part.partLocation = partLocation;
+  part.images = images;
+  part.deletedImages = deletedImages;
 
   const updatedPart = await part.save();
 
@@ -175,7 +177,7 @@ const deletePart = async (req, res) => {
 };
 
 const addImage = async (req, res) => {
-  console.log("ADD IMAGE");
+  console.log(req);
 };
 
 module.exports = {
