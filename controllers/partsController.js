@@ -1,6 +1,6 @@
 const Part = require("../models/Part");
 const User = require("../models/User");
-const { cloudinary } = require("../cloudinary");
+const cloudinary = require("cloudinary").v2;
 
 // @desc Get all parts
 // @route GET /parts
@@ -144,6 +144,16 @@ const updatePart = async (req, res) => {
   part.images = images;
   part.deletedImages = deletedImages;
 
+  if (req.body.deletedImages) {
+    // console.log(req.body.deletedImages);
+
+    for (let fileName of req.body.deletedImages) {
+      // console.log(fileName.fileName);
+      await cloudinary.uploader.destroy(fileName.fileName);
+    }
+    part.deletedImages = [];
+  }
+
   const updatedPart = await part.save();
 
   // console.log(updatedPart);
@@ -176,14 +186,9 @@ const deletePart = async (req, res) => {
   res.json(reply);
 };
 
-const addImage = async (req, res) => {
-  console.log(req);
-};
-
 module.exports = {
   getAllParts,
   createNewPart,
   updatePart,
   deletePart,
-  addImage,
 };

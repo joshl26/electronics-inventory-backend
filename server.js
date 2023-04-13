@@ -9,7 +9,6 @@ const cors = require("cors");
 const corsOptions = require("./config/corsOptions");
 const connectDB = require("./config/dbConn");
 const mongoose = require("mongoose");
-const partsController = require("./controllers/partsController");
 const PORT = process.env.PORT || 3500;
 
 mongoose.set("strictQuery", false);
@@ -63,13 +62,12 @@ app.use("/notes", require("./routes/noteRoutes"));
 app.use("/users", require("./routes/userRoutes"));
 
 app.post("/parts/upload", upload.single("my_file"), async (req, res) => {
-  console.log(req);
+  // console.log(req);
   try {
     const b64 = Buffer.from(req.file.buffer).toString("base64");
     let dataURI = "data:" + req.file.mimetype + ";base64," + b64;
     const cldRes = await handleUpload(dataURI);
     res.json(cldRes);
-    partsController.addImage;
   } catch (error) {
     console.log(error);
     res.send({
