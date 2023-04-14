@@ -10,9 +10,6 @@ router
   .get(partsController.getAllParts)
   .post(partsController.createNewPart)
   .patch(partsController.updatePart)
-  // .patch(upload.array("newImages"), partsController.updatePart)
   .delete(partsController.deletePart);
-
-// router.route("/upload").post(upload.single("my_file"));
 
 module.exports = router;

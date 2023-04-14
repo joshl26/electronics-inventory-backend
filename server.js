@@ -17,14 +17,14 @@ const cloudinary = require("cloudinary").v2;
 const Multer = require("multer");
 
 cloudinary.config({
-  cloud_name: "dv6keahg3",
-  api_key: "352394212659861",
-  api_secret: "isdfykrP_KuNXZz8oHx0Tzd6lCY",
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_KEY,
+  api_secret: process.env.CLOUDINARY_SECRET,
 });
 
-console.log(cloudinary.config().cloud_name);
-console.log(cloudinary.config().api_key);
-console.log(cloudinary.config().api_secret);
+// console.log(cloudinary.config().cloud_name);
+// console.log(cloudinary.config().api_key);
+// console.log(cloudinary.config().api_secret);
 
 const storage = new Multer.memoryStorage();
 const upload = Multer({
@@ -41,7 +41,7 @@ async function handleUpload(file) {
   return res;
 }
 
-console.log(process.env.NODE_ENV);
+// console.log(process.env.NODE_ENV);
 
 connectDB();
 
