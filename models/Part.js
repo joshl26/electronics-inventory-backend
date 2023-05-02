@@ -85,6 +85,11 @@ const partSchema = new mongoose.Schema(
       default: 0,
       required: false,
     },
+    cost: {
+      type: Number,
+      default: 0.0,
+      required: false,
+    },
   },
   {
     timestamps: true, //Adds createdAt and updatedAt timestamp fields to part record

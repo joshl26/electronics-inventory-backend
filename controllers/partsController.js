@@ -37,7 +37,7 @@ const getAllParts = async (req, res) => {
 const createNewPart = async (req, res) => {
   // console.log("Create new part");
 
-  const { user, name, description, qty, partType } = req.body;
+  const { user, name, description, qty, partType, cost } = req.body;
 
   // Confirm data
   if (!user || !name || !description) {
@@ -55,7 +55,7 @@ const createNewPart = async (req, res) => {
   }
 
   // Create and store the new user
-  const part = await Part.create({ user, name, description, qty, partType });
+  const part = await Part.create({ user, name, description, qty, partType, cost });
 
   if (part) {
     // Created
@@ -90,6 +90,7 @@ const updatePart = async (req, res) => {
     vendorName,
     partPackage,
     partLocation,
+    cost
   } = req.body;
 
   // console.log("Update Part with following data:");
@@ -143,6 +144,7 @@ const updatePart = async (req, res) => {
   part.partLocation = partLocation;
   part.images = images;
   part.deletedImages = deletedImages;
+  part.cost = cost;
 
   if (req.body.deletedImages) {
     // console.log(req.body.deletedImages);
