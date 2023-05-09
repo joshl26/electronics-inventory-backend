@@ -37,7 +37,26 @@ const getAllParts = async (req, res) => {
 const createNewPart = async (req, res) => {
   // console.log("Create new part");
 
-  const { user, name, description, qty, partType, cost } = req.body;
+  const {
+    user,
+    name,
+    description,
+    qty,
+    partType,
+    backOrder,
+    images,
+    newImages,
+    deletedImages,
+    partNumber,
+    lotId,
+    serialNumber,
+    manufacturer,
+    mfgDate,
+    vendorName,
+    partPackage,
+    partLocation,
+    cost,
+  } = req.body;
 
   // Confirm data
   if (!user || !name || !description) {
@@ -55,7 +74,26 @@ const createNewPart = async (req, res) => {
   }
 
   // Create and store the new user
-  const part = await Part.create({ user, name, description, qty, partType, cost });
+  const part = await Part.create({
+    user,
+    name,
+    description,
+    qty,
+    partType,
+    backOrder,
+    images,
+    newImages,
+    deletedImages,
+    partNumber,
+    lotId,
+    serialNumber,
+    manufacturer,
+    mfgDate,
+    vendorName,
+    partPackage,
+    partLocation,
+    cost,
+  });
 
   if (part) {
     // Created
@@ -90,7 +128,7 @@ const updatePart = async (req, res) => {
     vendorName,
     partPackage,
     partLocation,
-    cost
+    cost,
   } = req.body;
 
   // console.log("Update Part with following data:");
@@ -129,22 +167,22 @@ const updatePart = async (req, res) => {
 
   part.user = user;
   part.name = name;
+  part.partNumber = partNumber;
+  part.partType = partType;
   part.description = description;
   part.qty = qty;
-  part.partType = partType;
   part.backOrder = backOrder;
-  part.updatedBy = updatedBy;
-  part.partNumber = partNumber;
+  part.cost = cost;
+  part.partLocation = partLocation;
+  part.partPackage = partPackage;
   part.lotId = lotId;
   part.serialNumber = serialNumber;
-  part.manufacturer = manufacturer;
   part.mfgDate = mfgDate;
+  part.manufacturer = manufacturer;
   part.vendorName = vendorName;
-  part.partPackage = partPackage;
-  part.partLocation = partLocation;
+  part.updatedBy = updatedBy;
   part.images = images;
   part.deletedImages = deletedImages;
-  part.cost = cost;
 
   if (req.body.deletedImages) {
     // console.log(req.body.deletedImages);
