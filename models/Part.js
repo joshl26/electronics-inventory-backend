@@ -70,6 +70,10 @@ const partSchema = new mongoose.Schema(
       default: "",
       required: false,
     },
+    createdBy: {
+      type: String,
+      required: true,
+    },
     updatedBy: {
       type: String,
       required: false,

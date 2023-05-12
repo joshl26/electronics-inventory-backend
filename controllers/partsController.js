@@ -43,6 +43,7 @@ const createNewPart = async (req, res) => {
     description,
     qty,
     partType,
+    createdBy,
     backOrder,
     images,
     newImages,
@@ -80,6 +81,7 @@ const createNewPart = async (req, res) => {
     description,
     qty,
     partType,
+    createdBy,
     backOrder,
     images,
     newImages,
@@ -115,6 +117,7 @@ const updatePart = async (req, res) => {
     description,
     qty,
     partType,
+    createdBy,
     backOrder,
     updatedBy,
     images,
@@ -141,7 +144,7 @@ const updatePart = async (req, res) => {
   console.log(newImages);
 
   // Confirm data
-  if (!id || !user || !name || !description || !qty || !partType) {
+  if (!id || !user || !name || !description) {
     return res.status(400).json({ message: "All fields are required" });
   }
 
@@ -169,6 +172,7 @@ const updatePart = async (req, res) => {
   part.name = name;
   part.partNumber = partNumber;
   part.partType = partType;
+  part.createdBy = createdBy;
   part.description = description;
   part.qty = qty;
   part.backOrder = backOrder;
