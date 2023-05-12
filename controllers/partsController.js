@@ -37,6 +37,8 @@ const getAllParts = async (req, res) => {
 const createNewPart = async (req, res) => {
   // console.log("Create new part");
 
+  // const partUser = await User.findById(part.user).lean().exec();
+
   const {
     user,
     name,
