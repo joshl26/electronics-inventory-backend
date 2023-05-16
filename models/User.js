@@ -19,6 +19,16 @@ const userSchema = new mongoose.Schema({
     type: Boolean,
     default: true,
   },
+  colorMode: {
+    type: String,
+    required: true,
+    default: "Light",
+  },
+  partsListView: {
+    type: String,
+    required: true,
+    default: "Table",
+  },
 });
 
 module.exports = mongoose.model("User", userSchema);

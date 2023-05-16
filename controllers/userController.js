@@ -21,7 +21,7 @@ const getAllUsers = async (req, res) => {
 // @route POST /users
 // @access Private
 const createNewUser = async (req, res) => {
-  const { username, password, roles } = req.body;
+  const { username, password, roles, colorMode, partsListView } = req.body;
 
   // Confirm data
   if (!username || !password) {
@@ -43,8 +43,8 @@ const createNewUser = async (req, res) => {
 
   const userObject =
     !Array.isArray(roles) || !roles.length
-      ? { username, password: hashedPwd }
-      : { username, password: hashedPwd, roles };
+      ? { username, password: hashedPwd, colorMode, partsListView }
+      : { username, password: hashedPwd, roles, colorMode, partsListView };
 
   // Create and store new user
   const user = await User.create(userObject);
@@ -61,7 +61,7 @@ const createNewUser = async (req, res) => {
 // @route PATCH /users
 // @access Private
 const updateUser = async (req, res) => {
-  const { id, username, roles, active, password } = req.body;
+  const { id, username, roles, active, password, colorMode, partsListView } = req.body;
 
   // Confirm data
   if (
@@ -97,6 +97,8 @@ const updateUser = async (req, res) => {
   user.username = username;
   user.roles = roles;
   user.active = active;
+  user.colorMode = colorMode;
+  user.partsListView = partsListView;
 
   if (password) {
     // Hash password
