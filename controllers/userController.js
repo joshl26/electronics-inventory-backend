@@ -1,6 +1,7 @@
 const User = require("../models/User");
 const Note = require("../models/Note");
 const bcrypt = require("bcrypt");
+const mongoose = require("mongoose");
 
 // @desc Get all users
 // @route GET /users
@@ -64,7 +65,7 @@ const updateUser = async (req, res) => {
   const { id, username, roles, active, password, colorMode, partsListView } =
     req.body;
 
-  console.log(req.body);
+  // console.log(req.body);
 
   // Confirm data
   if (
@@ -81,8 +82,6 @@ const updateUser = async (req, res) => {
 
   // Does the user exist to update?
   const user = await User.findById(id).exec();
-
-  console.log(user);
 
   if (!user) {
     return res.status(400).json({ message: "User not found" });
