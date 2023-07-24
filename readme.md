@@ -1,4 +1,4 @@
-<h1 align="center">Welcome to electronics_inventory_backend 👋</h1>
+<h1 align="center">Welcome to Electronics Inventory - Backend 👋</h1>
 <p>
   <img alt="Version" src="https://img.shields.io/badge/version-0.0.1-blue.svg?cacheSeconds=2592000" />
   <img src="https://img.shields.io/badge/npm-%3E%3D8.0.0-blue.svg" />
