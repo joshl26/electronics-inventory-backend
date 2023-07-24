@@ -9,8 +9,8 @@
   <a href="https://github.com/joshl26/electronics-inventory-backend-react/graphs/commit-activity" target="_blank">
     <img alt="Maintenance" src="https://img.shields.io/badge/Maintained%3F-yes-green.svg" />
   </a>
-  <a href="https://github.com/joshl26/electronics-inventory-backend-react/blob/master/LICENSE" target="_blank">
-    <img alt="License: ISC" src="https://img.shields.io/github/license/joshl26/electronics_inventory_backend" />
+  <a href="https://github.com/joshl26/electronics-inventory-backend/blob/master/LICENSE" target="_blank">
+    <img alt="License: MIT" src="https://img.shields.io/github/license/joshl26/electronics_inventory_backend" />
   </a>
 </p>
 
