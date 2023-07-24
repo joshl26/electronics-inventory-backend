@@ -14,9 +14,9 @@
   </a>
 </p>
 
-> pre release demo version
+## Frontend Code is in this Repository
 
-### 🏠 [Homepage](https://github.com/joshl26/electronics-inventory-backend-react#readme)
+- [Electronics Inventory Frontend Code](https://github.com/joshl26/electronics-inventory-frontend)
 
 ## Prerequisites
 
