@@ -1,4 +1,4 @@
-<h1 align="center">Welcome to electronics_inventory_backend 👋</h1>
+<h1 align="center">Welcome to Electronics Inventory - Backend 👋</h1>
 <p>
   <img alt="Version" src="https://img.shields.io/badge/version-0.0.1-blue.svg?cacheSeconds=2592000" />
   <img src="https://img.shields.io/badge/npm-%3E%3D8.0.0-blue.svg" />
@@ -9,14 +9,14 @@
   <a href="https://github.com/joshl26/electronics-inventory-backend-react/graphs/commit-activity" target="_blank">
     <img alt="Maintenance" src="https://img.shields.io/badge/Maintained%3F-yes-green.svg" />
   </a>
-  <a href="https://github.com/joshl26/electronics-inventory-backend-react/blob/master/LICENSE" target="_blank">
-    <img alt="License: ISC" src="https://img.shields.io/github/license/joshl26/electronics_inventory_backend" />
+  <a href="https://github.com/joshl26/electronics-inventory-backend/blob/master/LICENSE" target="_blank">
+    <img alt="License: MIT" src="https://img.shields.io/github/license/joshl26/electronics-inventory-backend" />
   </a>
 </p>
 
-> pre release demo version
+## Frontend Code is in this Repository
 
-### 🏠 [Homepage](https://github.com/joshl26/electronics-inventory-backend-react#readme)
+- [Electronics Inventory Frontend Code](https://github.com/joshl26/electronics-inventory-frontend)
 
 ## Prerequisites
 
