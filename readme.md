@@ -71,7 +71,7 @@ Electronics Inventory is a full-stack website project where users can keep track
 
 ## API Documentation
 
-### ✨ [Live API Documentation](https://el-in.ca/api-docs/)
+### ✨ [Live API Documentation](https://electronics-inventory-server.onrender.com/api-docs/)
 
 > <p>Created using Swagger UI</p>
 
@@ -94,7 +94,6 @@ Electronics Inventory is a full-stack website project where users can keep track
 ### ✨ [Live Site Demo](https://el-in.ca)
 
 <p>Hosted with the free tier of Render.com</p>
-
 
 ## Prerequisites
 

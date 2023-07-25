@@ -11,6 +11,41 @@ const connectDB = require("./config/dbConn");
 const mongoose = require("mongoose");
 const PORT = process.env.PORT || 3500;
 
+const swaggerJSDoc = require("swagger-jsdoc");
+const swaggerUi = require("swagger-ui-express");
+
+const options = {
+  definition: {
+    openapi: "3.0.0",
+    info: {
+      title: "Outdoorsy",
+      version: "0.1.0",
+      description:
+        "This is a Campsite review application made with Express and documented with Swagger",
+      license: {
+        name: "MIT",
+        url: "https://github.com/joshl26/electronics-inventory-backend/blob/master/LICENSE",
+      },
+      contact: {
+        name: "Joshua Lehman",
+        url: "https://joshlehman.ca",
+        email: "joshlehman.dev@gmail.com",
+      },
+    },
+    servers: [
+      {
+        url: process.env.SERVER_URL,
+      },
+    ],
+  },
+  apis: ["./routes/*.js"],
+};
+
+// Initialize swagger-jsdoc -> returns validated swagger spec in json format
+const swaggerSpec = swaggerJSDoc(options);
+
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+
 mongoose.set("strictQuery", false);
 
 const cloudinary = require("cloudinary").v2;
