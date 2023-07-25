@@ -7,7 +7,7 @@ const verifyJWT = require("../middleware/verifyJWT");
  * @swagger
  *  components:
  *   schemas:
- *    User:
+ *    Users:
  *      type: object
  *      required:
  *      - username
@@ -22,6 +22,26 @@ const verifyJWT = require("../middleware/verifyJWT");
  *          username:
  *              type: string
  *              description: The username of the user
+ */
+
+/**
+ * @swagger
+ * /register/:
+ *   get:
+ *     tags:
+ *     - Users
+ *
+ */
+
+/**
+ * @swagger
+ * /users/:
+ *   get:
+ *     summary: Register new user form
+ *     description: Register new user form
+ *     responses:
+ *       200:
+ *         description: update campground listing contents
  */
 
 router.use(verifyJWT);
