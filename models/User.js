@@ -21,12 +21,10 @@ const userSchema = new mongoose.Schema({
   },
   colorMode: {
     type: String,
-    required: false,
     default: "Light",
   },
   partsListView: {
     type: String,
-    required: false,
     default: "Table",
   },
 });
