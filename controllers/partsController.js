@@ -76,7 +76,7 @@ const createNewPart = async (req, res) => {
     return res.status(409).json({ message: "Duplicate part name" });
   }
 
-  // Create and store the new user
+  // Create and store the new part
   const part = await Part.create({
     user,
     name,
