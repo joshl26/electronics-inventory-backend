@@ -1,0 +1,49 @@
+{
+  "name": "electronics_inventory_backend",
+  "version": "0.0.1",
+  "description": "pre release demo version",
+  "packageManager": "^pnpm@6.32.4",
+  "homepage": "https://github.com/joshl26/electronics-inventory-backend-react#readme",
+  "demo": "https://github.com/joshl26/electronics-inventory-backend-react",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/joshl26/electronics-inventory-backend-react.git"
+  },
+  "bugs": {
+    "url": "https://github.com/joshl26/electronics-inventory-backend-react/issues"
+  },
+  "engines": {
+    "npm": ">=8.0.0",
+    "node": ">=17.0.0"
+  },
+  "main": "server.js",
+  "scripts": {
+    "start": "node server",
+    "dev": "nodemon server"
+  },
+  "keywords": [],
+  "author": "Joshua Lehman",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^2.0.20"
+  },
+  "dependencies": {
+    "bcrypt": "^5.1.0",
+    "cloudinary": "^1.35.0",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "date-fns": "^2.29.3",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "express-async-handler": "^1.2.0",
+    "express-rate-limit": "^6.7.0",
+    "jsonwebtoken": "^9.0.0",
+    "mongoose": "^6.9.0",
+    "mongoose-sequence": "^5.3.1",
+    "multer": "^1.4.5-lts.1",
+    "multer-storage-cloudinary": "^4.0.0",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.0",
+    "uuid": "^9.0.0"
+  }
+}
