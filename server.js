@@ -69,7 +69,7 @@ const upload = Multer({
 async function handleUpload(file) {
   const res = await cloudinary.uploader.upload(file, {
     resource_type: "image",
-    allowedFormats: ["jpeg", "png", "jpg"],
+    allowedFormats: ["jpeg", "png", "jpg", "pdf"],
     folder: "ElectronicsInventory",
     use_filename: true,
   });
