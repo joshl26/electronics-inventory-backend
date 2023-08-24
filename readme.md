@@ -20,6 +20,18 @@ Electronics Inventory is a full-stack website project where users can keep track
 
 - [Electronics Inventory Frontend Code](https://github.com/joshl26/electronics-inventory-frontend)
 
+## Demo
+
+### ✨ [Live Site Demo](https://el-in.ca)
+
+<p>Hosted with the free tier of Render.com</p>
+
+## API Documentation
+
+### ✨ [Live API Documentation](https://electronics-inventory-server.onrender.com/api-docs/)
+
+> <p>Created using Swagger UI</p>
+
 ## Functionalities
 
 > The user will have to login to edit the inventory details.
@@ -69,12 +81,6 @@ Electronics Inventory is a full-stack website project where users can keep track
 
 > AWS - Mongodb is hosted on Amazon ec2 instance.
 
-## API Documentation
-
-### ✨ [Live API Documentation](https://electronics-inventory-server.onrender.com/api-docs/)
-
-> <p>Created using Swagger UI</p>
-
 ## Screenshots
 
 > HomePage
@@ -88,12 +94,6 @@ Electronics Inventory is a full-stack website project where users can keep track
 
 > Login & Register page
 > ![login,register](https://raw.githubusercontent.com/joshl26/joshl26/main/assets/electronicsInventory_3.png)
-
-## Demo
-
-### ✨ [Live Site Demo](https://el-in.ca)
-
-<p>Hosted with the free tier of Render.com</p>
 
 ## Prerequisites
 

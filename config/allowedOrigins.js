@@ -1,3 +1,4 @@
+//TODO select based on production vs dev
 const allowedOrigins = [
   "http://localhost:3000",
   // "https://web.postman.co/",
