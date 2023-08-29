@@ -11,8 +11,18 @@ const connectDB = require("./config/dbConn");
 const mongoose = require("mongoose");
 const PORT = process.env.PORT || 3500;
 
-const swaggerJSDoc = require("swagger-jsdoc");
+const fs = require("fs");
+const YAML = require("yaml");
+const file = fs.readFileSync("./postman/schemas/index.yaml", "utf8");
+const swaggerDocument = YAML.parse(file);
 const swaggerUi = require("swagger-ui-express");
+
+//  configures the Express.js application to use the Swagger UI middleware for displaying a Swagger
+//  document. The '/api-docs' route is used as an endpoint for accessing the Swagger UI.
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+
+// const swaggerJSDoc = require("swagger-jsdoc");
+// const swaggerUi = require("swagger-ui-express");
 
 const options = {
   definition: {
@@ -40,11 +50,6 @@ const options = {
   },
   apis: ["./routes/*.js"],
 };
-
-// Initialize swagger-jsdoc -> returns validated swagger spec in json format
-const swaggerSpec = swaggerJSDoc(options);
-
-app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 mongoose.set("strictQuery", false);
 
