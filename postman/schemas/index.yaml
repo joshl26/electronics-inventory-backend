@@ -11,7 +11,8 @@ info:
         url: https://joshlehman.ca
         email: joshlehman.dev@gmail.com
 servers:
-    - url: process.env.SERVER_URL
+    - url: https://electronics-inventory-server.onrender.com
+    - url: http://localhost:3500/
 tags:
     - name: Auth
       description: Everything about your user auths
