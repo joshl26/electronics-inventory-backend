@@ -21,36 +21,6 @@ const swaggerUi = require("swagger-ui-express");
 //  document. The '/api-docs' route is used as an endpoint for accessing the Swagger UI.
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
-// const swaggerJSDoc = require("swagger-jsdoc");
-// const swaggerUi = require("swagger-ui-express");
-
-const options = {
-  definition: {
-    openapi: "3.0.0",
-    info: {
-      title: "Electronics Inventory",
-      version: "0.1.0",
-      description:
-        "Electronics Inventory is a full-stack website project where users can keep track of an electronics lab inventory. With thousands of small components its easy to lose track of where and how many of each part you currently have in stock. With this website you have full control over you inventory, from anywhere in the world. In order to use this website, you must have an account. This project was coded from scratch by myself as a capstone project for my career change into Software Engineering.",
-      license: {
-        name: "MIT",
-        url: "https://github.com/joshl26/electronics-inventory-backend/blob/master/LICENSE",
-      },
-      contact: {
-        name: "Joshua Lehman",
-        url: "https://joshlehman.ca",
-        email: "joshlehman.dev@gmail.com",
-      },
-    },
-    servers: [
-      {
-        url: process.env.SERVER_URL,
-      },
-    ],
-  },
-  apis: ["./routes/*.js"],
-};
-
 mongoose.set("strictQuery", false);
 
 const cloudinary = require("cloudinary").v2;
