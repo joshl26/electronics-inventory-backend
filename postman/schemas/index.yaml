@@ -104,17 +104,18 @@ paths:
     /notes:
         get:
             tags:
-                - campgrounds
-            summary: Return the HTML for the campground list page
+                - Notes
+            summary: Get all notes from DB
+            description: Return all notes in the database
             responses:
                 "200":
-                    description: The page displaying a list of all the currrent campgrounds in the DB
+                    description: The page displaying a list of all the currrent notes in the DB
                     content:
                         text/html:
                             schema:
                                 type: string
                 404:
-                    description: No campgrounds found
+                    description: No notes found
                     content:
                         application/json:
                             schema:
@@ -127,32 +128,32 @@ paths:
                                 $ref: "#/components/schemas/Error"
         post:
             tags:
-                - campgrounds
-            summary: Insert a new Campground record in the database
-            description: Insert a new Campground record in the database
-            operationId: addCampground
+                - Notes
+            summary: Insert a new note record in the database
+            description: Insert a new note record in the database
+            operationId: addNewNote
             requestBody:
-                description: Create a new campground record in the DB
+                description: Create a new note record in the DB
                 content:
                     application/json:
                         schema:
-                            $ref: "#/components/schemas/Campgrounds"
+                            $ref: "#/components/schemas/Note"
                     application/xml:
                         schema:
-                            $ref: "#/components/schemas/Campgrounds"
+                            $ref: "#/components/schemas/Note"
                     application/x-www-form-urlencoded:
                         schema:
-                            $ref: "#/components/schemas/Campgrounds"
+                            $ref: "#/components/schemas/Note"
                 required: true
             responses:
                 "200":
-                    description: Insert a new Campground record in the database
+                    description: Insert a new note record in the database
                     content:
                         application/json:
                             schema:
-                                $ref: "#/components/schemas/Campgrounds"
+                                $ref: "#/components/schemas/Notes"
                 404:
-                    description: No campgrounds found
+                    description: No notes found
                     content:
                         application/json:
                             schema:
@@ -163,262 +164,241 @@ paths:
                         application/json:
                             schema:
                                 $ref: "#/components/schemas/Error"
-    /campgrounds/new:
-        get:
+        patch:
             tags:
-                - campgrounds
-            summary: Return the HTML for new campground form
-            description: Return the HTML for new campground form
-            operationId: getNewCampgroundForm
-            responses:
-                "200":
-                    description: Only returns 200
-                    content:
-                        application/json:
-                            schema:
-                                $ref: "#/components/schemas/Campground"
-                        application/xml:
-                            schema:
-                                $ref: "#/components/schemas/Campground"
-    /campgrounds/{id}:
-        get:
-            tags:
-                - campgrounds
-            summary: Find campground review by ID
-            description: Find campground review by ID
-            operationId: getCampgroundById
-            parameters:
-                - in: path
-                  name: id
-                  required: true
-                  description: Numeric ID of the Campground record to edit
-                  example: 646d919387d1d5003b83728c
-                  schema:
-                      type: string
-            responses:
-                "200":
-                    description: successful operation
-                    content:
-                        application/json:
-                            schema:
-                                $ref: "#/components/schemas/Campgrounds"
-                        application/xml:
-                            schema:
-                                $ref: "#/components/schemas/Campgrounds"
-                "400":
-                    description: Invalid ID supplied
-                "404":
-                    description: Order not found
-        put:
-            tags:
-                - campgrounds
-            summary: Update campground review
+                - Notes
+            summary: Update note details
             description: This can only be done by a user that is logged in
-            operationId: updateCampground
-            parameters:
-                - name: id
-                  in: path
-                  required: true
-                  description: Numeric ID of the Campground record to edit
-                  example: 646d919387d1d5003b83728c
-                  schema:
-                      type: string
+            operationId: updateNote
             requestBody:
-                description: Update an existing campground in the DB
+                description: Update an existing note in the DB
                 content:
                     application/json:
                         schema:
-                            $ref: "#/components/schemas/User"
+                            $ref: "#/components/schemas/Note"
                     application/xml:
                         schema:
-                            $ref: "#/components/schemas/User"
+                            $ref: "#/components/schemas/Note"
                     application/x-www-form-urlencoded:
                         schema:
-                            $ref: "#/components/schemas/User"
+                            $ref: "#/components/schemas/Note"
             responses:
                 "200":
                     description: successful operation
                 "400":
-                    description: Invalid campground id supplied
+                    description: Invalid note id in req body
                 "404":
-                    description: Campground not found
+                    description: Note not found
         delete:
             tags:
-                - campgrounds
-            summary: Delete campground record from DB
-            description: Delete campground record from DB
-            operationId: deleteCampground
-            parameters:
-                - name: id
-                  in: path
-                  required: true
-                  description: Numeric ID of the Campground record to edit
-                  example: 646d919387d1d5003b83728c
-                  schema:
-                      type: string
+                - Notes
+            summary: Delete note record from DB
+            description: Delete note record from DB
+            operationId: deleteNote
             responses:
                 "400":
-                    description: Invalid campground id supplied
+                    description: Invalid note id in req body
                 "404":
-                    description: Campground not found
-    /campgrounds/{id}/edit:
+                    description: Note not found
+
+    /parts:
         get:
             tags:
-                - campgrounds
-            summary: Return edit campground HTML page including campsite details
-            description: Return edit campground HTML page including campsite details
-            operationId: getCampgroundById
-            parameters:
-                - in: path
-                  name: id
-                  required: true
-                  description: Numeric ID of the Campground record to edit
-                  example: 646d919387d1d5003b83728c
-                  schema:
-                      type: string
+                - Parts
+            summary: Get all parts from DB
+            description: Return all parts in the database
             responses:
                 "200":
-                    description: successful operation
+                    description: The page displaying a list of all the currrent notes in the DB
+                    content:
+                        text/html:
+                            schema:
+                                type: string
+                404:
+                    description: No notes found
                     content:
                         application/json:
                             schema:
-                                $ref: "#/components/schemas/Campgrounds"
-                        application/xml:
+                                $ref: "#/components/schemas/Error"
+                500:
+                    description: Unexpected error
+                    content:
+                        application/json:
                             schema:
-                                $ref: "#/components/schemas/Campgrounds"
-                "400":
-                    description: Invalid ID supplied
-                "404":
-                    description: Order not found
-    /campgrounds/{id}/reviews:
+                                $ref: "#/components/schemas/Error"
         post:
             tags:
-                - reviews
-            summary: Insert a new review for a specific campground
-            description: Insert a new review for a specific campground
-            operationId: addReview
-            parameters:
-                - in: path
-                  name: id
-                  required: true
-                  description: Numeric ID of the Campground record to edit
-                  example: 646d919387d1d5003b83728c
-                  schema:
-                      type: string
+                - Parts
+            summary: Insert a new part record in the database
+            description: Insert a new part record in the database
+            operationId: addNewPart
             requestBody:
-                description: Insert a new review for a specific campground
+                description: Create a new part record in the DB
                 content:
                     application/json:
                         schema:
-                            $ref: "#/components/schemas/Reviews"
+                            $ref: "#/components/schemas/Part"
                     application/xml:
                         schema:
-                            $ref: "#/components/schemas/Reviews"
+                            $ref: "#/components/schemas/Part"
                     application/x-www-form-urlencoded:
                         schema:
-                            $ref: "#/components/schemas/Reviews"
+                            $ref: "#/components/schemas/Part"
                 required: true
             responses:
                 "200":
-                    description: Insert a new Campground record in the database
+                    description: Insert a new part record in the database
                     content:
                         application/json:
                             schema:
-                                $ref: "#/components/schemas/Reviews"
-                "404":
-                    description: No reviews found
+                                $ref: "#/components/schemas/Parts"
+                404:
+                    description: No parts found
                     content:
                         application/json:
                             schema:
                                 $ref: "#/components/schemas/Error"
-                "500":
+                500:
                     description: Unexpected error
                     content:
                         application/json:
                             schema:
                                 $ref: "#/components/schemas/Error"
-    /campgrounds/{id}/reviews/{reviewId}/:
+        patch:
+            tags:
+                - Parts
+            summary: Update part details
+            description: This can only be done by a user that is logged in with the correct role
+            operationId: updatePart
+            requestBody:
+                description: Update an existing part in the DB
+                content:
+                    application/json:
+                        schema:
+                            $ref: "#/components/schemas/Part"
+                    application/xml:
+                        schema:
+                            $ref: "#/components/schemas/Part"
+                    application/x-www-form-urlencoded:
+                        schema:
+                            $ref: "#/components/schemas/Part"
+            responses:
+                "200":
+                    description: successful operation
+                "400":
+                    description: Invalid part id in req body
+                "404":
+                    description: Part not found
         delete:
             tags:
-                - reviews
-            summary: Delete campground review from DB
-            description: Delete campground review from DB
-            operationId: deleteCampground
-            parameters:
-                - in: path
-                  name: id
-                  schema:
-                      type: string
-                  required: true
-                  description: Numeric ID of the Campground record to edit
-                  example: 646d977987d1d5003b83728e
-                - in: path
-                  name: reviewId
-                  schema:
-                      type: string
-                  required: true
-                  description: Numeric ID of the Review record to edit
-                  example: 646d981b87d1d5003b837290
+                - Parts
+            summary: Delete part record from DB
+            description: Delete part record from DB
+            operationId: deletePart
+            responses:
+                "400":
+                    description: Invalid part id in req body
+                "404":
+                    description: Part not found
+    /users:
+        get:
+            tags:
+                - Users
+            summary: Get all users from DB
+            description: Return all users in the database
             responses:
                 "200":
-                    description: Insert a new Campground review
+                    description: The page displaying a list of all the currrent users in the DB
                     content:
-                        application/json:
+                        text/html:
                             schema:
-                                $ref: "#/components/schemas/Reviews"
-                "404":
-                    description: No reviews found
+                                type: string
+                404:
+                    description: No users found
                     content:
                         application/json:
                             schema:
                                 $ref: "#/components/schemas/Error"
-                "500":
+                500:
                     description: Unexpected error
                     content:
                         application/json:
                             schema:
                                 $ref: "#/components/schemas/Error"
-    /register:
-        get:
-            tags:
-                - users
-            summary: Return register new user HTML page
-            description: Return register new user HTML page
-            operationId: registerNewUserForm
-            responses:
-                "200":
-                    description: successful operation
-                    content:
-                        application/json:
-                            schema:
-                                $ref: "#/components/schemas/Campgrounds"
-                        application/xml:
-                            schema:
-                                $ref: "#/components/schemas/Campgrounds"
-                "400":
-                    description: Invalid ID supplied
-                "404":
-                    description: Order not found
         post:
             tags:
-                - users
-            summary: Register new user in DB
-            description: Register new user in DB
-            operationId: registerNewUser
+                - Users
+            summary: Insert a new users record in the database
+            description: Insert a new user record in the database
+            operationId: addNewUser
+            requestBody:
+                description: Create a new user record in the DB
+                content:
+                    application/json:
+                        schema:
+                            $ref: "#/components/schemas/User"
+                    application/xml:
+                        schema:
+                            $ref: "#/components/schemas/User"
+                    application/x-www-form-urlencoded:
+                        schema:
+                            $ref: "#/components/schemas/User"
+                required: true
             responses:
                 "200":
-                    description: successful operation
+                    description: Insert a new user record in the database
                     content:
                         application/json:
                             schema:
-                                $ref: "#/components/schemas/Campgrounds"
-                        application/xml:
+                                $ref: "#/components/schemas/User"
+                404:
+                    description: No parts found
+                    content:
+                        application/json:
                             schema:
-                                $ref: "#/components/schemas/Campgrounds"
+                                $ref: "#/components/schemas/Error"
+                500:
+                    description: Unexpected error
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+        patch:
+            tags:
+                - Users
+            summary: Update user details
+            description: This can only be done by a user that is logged in with the correct role
+            operationId: updateUser
+            requestBody:
+                description: Update an existing user in the DB
+                content:
+                    application/json:
+                        schema:
+                            $ref: "#/components/schemas/User"
+                    application/xml:
+                        schema:
+                            $ref: "#/components/schemas/User"
+                    application/x-www-form-urlencoded:
+                        schema:
+                            $ref: "#/components/schemas/User"
+            responses:
+                "200":
+                    description: successful operation
                 "400":
-                    description: Invalid ID supplied
+                    description: Invalid user id in req body
                 "404":
-                    description: Order not found
+                    description: User not found
+        delete:
+            tags:
+                - User
+            summary: Delete user record from DB
+            description: Delete user record from DB
+            operationId: deleteUser
+            responses:
+                "400":
+                    description: Invalid user id in req body
+                "404":
+                    description: User not found
     /login:
         get:
             tags:
@@ -529,7 +509,7 @@ paths:
                     description: User not found
 components:
     schemas:
-        Notes:  
+        Notes:
             type: object
             required:
                 - user
@@ -569,54 +549,55 @@ components:
                     type: number
                     format: int32
                     description: Version of the note, starting at 0 and incremented by +1 with each change saved
- 
-
-        Campgrounds:
+        Parts:
             type: object
             required:
-                - title
-                - location
-                - price
+                - user
+                - name
                 - description
             properties:
-                id:
+                _id:
                     type: string
                     format: uuid
-                    description: The id auto generated by mongoose for the campsite
-                geometry:
-                    type: array
-                    description: Array of geometry objects
-                    items:
-                        type: object
-                        properties:
-                            point:
-                                type: array
-                                items:
-                                    type: object
-                                    properties:
-                                        co-ordinate:
-                                            type: number
-                                            format: float
-                title:
+                    description: The unique id auto generated by mongoose for the part
+                user:
                     type: string
-                    description: The title of the campsite
-                location:
+                    format: uuid
+                    description: The unique id auto generated by mongoose for the user
+                name:
                     type: string
-                    description: The location of the campsite
-                price:
-                    type: number
-                    format: float
-                    description: The price for the campsite
+                    description: The name of the part
                 description:
                     type: string
-                    description: The description of the campsite
+                    description: The description of the part
+                qty:
+                    type: number
+                    description: The inventory stock qty of the part
+                partType:
+                    type: string
+                    description: The type of the part
+                createdAt:
+                    type: string
+                    format: Date/Time
+                    description: Date/Time Note created
+                updatedAt:
+                    type: string
+                    format: Date/Time
+                    description: Date/Time Note updated
+                ticket2:
+                    type: number
+                    description: Ticket number for note
+                __V:
+                    type: number
+                    format: int32
+                    description: Version of the note, starting at 0 and incremented by +1 with each change saved
                 images:
                     type: array
                     description: Array of image objects
                     items:
                         type: object
                         properties:
-                            id:
+                            _id:
                                 type: string
                                 format: uuid
                                 description: The id auto generated by mongoose for the campground
@@ -627,54 +608,40 @@ components:
                             filename:
                                 type: string
                                 description: The filename of the image
-                reviews:
-                    type: array
-                    description: Array of objects review ID's
-                    items:
-                        type: object
-                        properties:
-                            id:
-                                type: string
-                                format: uuid
-                                description: The id auto generated by mongoose for the review
-                author:
+                partNumber:
                     type: string
-                    format: uuid
-                    description: ID of person that created the review
-                __v:
+                    description: The part number of the part
+                serialNumber:
+                    type: string
+                    description: The serial number of the part
+                manufacturer:
+                    type: string
+                    description: The manufacturer of the part
+                updatedBy:
+                    type: string
+                    description: The name of the user that last updated the part
+                mfgDate:
+                    type: string
+                    description: The manufacturing date of the part
+                backorder:
                     type: number
-                    format: int32
-                    description: Version of the campsite review, starting at 0 and incremented by +1 with each change saved
-        Reviews:
-            type: object
-            required:
-                - rating
-                - body
-            properties:
-                id:
+                    description: The backorder qty of the part
+                vendorName:
                     type: string
-                    format: uuid
-                    description: The id auto generated by mongoose for the campsite
-                title:
+                    description: The vendor name of the part
+                partPackage:
                     type: string
-                    description: The title of the campsite
-                location:
+                    description: The package type of the part
+                partLocation:
                     type: string
-                    description: The location of the campsite
-                price:
-                    type: number
-                    format: float
-                    description: The price for the campsite
-                description:
-                    type: string
-                    description: The description of the campsite
-                images:
+                    description: The location of the part
+                deletedImages:
                     type: array
                     description: Array of image objects
                     items:
                         type: object
                         properties:
-                            id:
+                            _id:
                                 type: string
                                 format: uuid
                                 description: The id auto generated by mongoose for the campground
@@ -685,36 +652,47 @@ components:
                             filename:
                                 type: string
                                 description: The filename of the image
-                author:
-                    type: string
-                    format: uuid
-                    description: ID of person that created the review
-                __v:
+                cost:
                     type: number
-                    format: int32
-                    description: Version of the campsite review, starting at 0 and incremented by +1 with each change saved
+                    description: The cost of the part
+                createdBy:
+                    type: string
+                    description: The name of the user of that created the part
         Users:
             type: object
             required:
                 - username
-                - email
+                - password
             properties:
-                id:
+                _id:
                     type: string
-                    description: The auto generated id of the user
-                email:
-                    type: string
-                    description: The email adress of the user
+                    format: uuid
+                    description: The unique id auto generated by mongoose for the user
                 username:
                     type: string
                     description: The username of the user
-                salt:
+                password:
                     type: string
-                    description: The salt for the users password
-                hash:
+                    description: The username of the user
+                roles:
+                    type: array
+                    description: Array of roles for this user
+                    items:
+                        type: object
+                        properties:
+                            role:
+                                type: string
+                                description: The role of the user
+                __V:
+                    type: number
+                    format: int32
+                    description: Version of the user settings, starting at 0 and incremented by +1 with each change saved
+                colorMode:
                     type: string
-                    description: The hash for the users password
-
+                    description: The colorMode of the User
+                partsListView:
+                    type: string
+                    description: The style of tables selected by user
         Error:
             type: object
             required:
