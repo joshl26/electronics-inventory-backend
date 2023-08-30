@@ -17,8 +17,6 @@ const file = fs.readFileSync("./postman/schemas/index.yaml", "utf8");
 const swaggerDocument = YAML.parse(file);
 const swaggerUi = require("swagger-ui-express");
 
-//  configures the Express.js application to use the Swagger UI middleware for displaying a Swagger
-//  document. The '/api-docs' route is used as an endpoint for accessing the Swagger UI.
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 mongoose.set("strictQuery", false);
