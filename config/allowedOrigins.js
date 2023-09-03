@@ -1,10 +1,9 @@
 const allowedOrigins = [
   process.env.NODE_ENV === "production"
-    ? "https://electronics-inventory-client.onrender.com"
+    ? "https://www.el-in.ca"
     : "http://localhost:3000",
 
   // "https://web.postman.co/",
-  // "https://www.el-in.ca",
 ];
 
 module.exports = allowedOrigins;
