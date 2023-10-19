@@ -1,0 +1,37 @@
+{
+  "_id": { "$oid": "642affe8f215fc42000f1a5d" },
+  "user": { "$oid": "63e2d7733fe329d74d72c49d" },
+  "name": "NPN type transistors",
+  "description": "It is an NPN type transistor with an operating temperature range of -55 to 150 degrees Celsius. The component can dissipate 625 mW of power, giving it good thermal control for not being a MOSFET, which is designed for thermal dissipation.",
+  "qty": { "$numberInt": "6" },
+  "partType": "Transistor",
+  "createdAt": { "$date": { "$numberLong": "1680539624864" } },
+  "updatedAt": { "$date": { "$numberLong": "1693358908403" } },
+  "ticket2": { "$numberInt": "513" },
+  "__v": { "$numberInt": "49" },
+  "images": [
+    {
+      "_id": "e9a468f7479c58b8f17dd1dc384c77a9",
+      "url": "http://res.cloudinary.com/dv6keahg3/image/upload/f_auto/q_auto/v1681347133/ElectronicsInventory/wzqkpczsn7sbehz7yzeu.png",
+      "fileName": "ElectronicsInventory/wzqkpczsn7sbehz7yzeu"
+    },
+    {
+      "_id": "b67495ca9fd06be537a7705a9beedd72",
+      "url": "http://res.cloudinary.com/dv6keahg3/image/upload/v1681347160/ElectronicsInventory/iierofxtq7w73ds73xka.png",
+      "fileName": "ElectronicsInventory/iierofxtq7w73ds73xka"
+    }
+  ],
+  "partNumber": "PN2222A",
+  "lotId": "XYZ123",
+  "serialNumber": "1234",
+  "manufacturer": "ON Semiconductors",
+  "updatedBy": "DEMO",
+  "mfgDate": "2023-03-12",
+  "backOrder": { "$numberInt": "2" },
+  "vendorName": "Smiths Supplies",
+  "partPackage": "Thru hole",
+  "partLocation": "A3",
+  "deletedImages": [],
+  "cost": { "$numberDouble": "7.89" },
+  "createdBy": "Josh"
+}

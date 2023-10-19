@@ -1,5 +1,3 @@
-# Electronics Inventory Documentation
-
 <p>
   <img alt="Version" src="https://img.shields.io/badge/version-1.0.0-blue.svg?cacheSeconds=2592000" />
   <img src="https://img.shields.io/badge/npm-%3E%3D8.0.0-blue.svg" />
@@ -17,9 +15,9 @@
 
 ![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white)
 ![CSS3](https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white)
-![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E)
-![NodeJS](https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white)
-![Express.js](https://img.shields.io/badge/express.js-%23404d59.svg?style=for-the-badge&logo=express&logoColor=%2361DAFB)
+![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=white)
+![NodeJS](https://img.shields.io/badge/node.js-%6DA55F?style=for-the-badge&logo=node.js&logoColor=white)
+![Express.js](https://img.shields.io/badge/express.js-%23404d59.svg?style=for-the-badge&logo=express&logoColor=white)
 ![Swagger](https://img.shields.io/badge/-Swagger-%23Clojure?style=for-the-badge&logo=swagger&logoColor=white)
 ![AWS](https://img.shields.io/badge/AWS-%23FF9900.svg?style=for-the-badge&logo=amazon-aws&logoColor=white)
 ![MongoDB](https://img.shields.io/badge/MongoDB-%234ea94b.svg?style=for-the-badge&logo=mongodb&logoColor=white)
@@ -27,22 +25,39 @@
 ![Render](https://img.shields.io/badge/Render-%46E3B7.svg?style=for-the-badge&logo=render)
 ![Redux](https://img.shields.io/badge/Redux-%46E3B7.svg?style=for-the-badge&logo=redux)
 
+# Electronics Inventory README Documentation
+
+![Home page image](https://raw.githubusercontent.com/joshl26/joshl26/main/assets/Laptop_el-in.png)
+
 **Table Of Contents**
 
 - [Introduction](#introduction)
 - [Live Demo](#live-demo)
 - [Code Repositories](#code-repositories)
+- [API Documentaion](#api-documentation)
+- [Functionalities](#functionalities)
+- [Technologies Utilized](#technologies-utilized)
 - [Project Setup](#project-setup)
 - [Folder Structure](#folder-structure)
 - [Database Architecture](#database-architecture)
 - [API Payload](#api-payload)
-- [Usage - Home Page](#usage---home-page)
-- [Usage - Parts List](#usage---parts-list)
-- [Usage - New Part](#usage---part-new)
-- [Usage - Users List](#usage---users-list)
-- [Usage - New User](#usage---new-user)
+- [Usage - Home Page](#usage-home-page)
+- [Usage - Parts List](#usage-parts-list)
+- [Usage - New Part](#usage-new-part)
+- [Usage - Edit Part](#usage-edit-part)
+- [Usage - Users List](#usage-users-list)
+- [Usage - New User](#usage-new-user)
+- [Usage - Edit User](#usage-edit-user)
+- [Usage - Notes List](#usage-notes-list)
+- [Usage - New Note](#usage-new-note)
+- [Usage - Edit Note](#usage-edit-note)
+- [Usage - Tablet](#usage-tablet)
 - [Testing](#testing)
+- [Screenshotes](#screenshots)
+- [Author](#author)
+- [Social Links](#social)
 - [Contributions](#contributions)
+- [License](#license)
 
 If you would like to see my progress throughout the development of this application, please take a look at my posts on LinkedIn: [here](https://www.linkedin.com/in/joshrlehman/).
 
@@ -50,7 +65,17 @@ If you would like to see my progress throughout the development of this applicat
 
 ## Introduction
 
-Electronics Inventory is a cutting-edge SAAS webapp that efficiently organizes electronic lab inventory for both small businesses and individuals with ease. With its user-friendly interface, you can effortlessly keep track of thousands of small components and have complete command over your inventory from anywhere in the world. To take advantage of this revolutionary app, you must have an account. I am proud to say that I created this project from scratch as a capstone project for my career change into Software Engineering.
+Electronics Inventory is a cutting-edge SAAS webapp that efficiently organizes electronic lab inventory for both small businesses and individuals with ease. With its user-friendly interface, you can effortlessly keep track of thousands of small components and have complete command over your inventory from anywhere in the world. To take advantage of this revolutionary app, you must have an account.
+
+Electronics inventory software is the best way to keep track of stock and ensure that your business has the right items in the right amounts.
+
+It can provide you with real-time data on current stock levels and allow you to quickly and accurately reorder items when necessary.
+
+It can also allow you to track and trace items from the moment they enter your inventory until the moment they are sold, providing you with an unprecedented level of visibility and control over your inventory.
+
+Finally, electronics inventory software can help you easily manage pricing, discounts, returns, and other aspects of inventory management.
+
+I am proud to say that I created this project from scratch as a capstone project for my career change into Software Engineering.
 
 <a name="live-demo"></a>
 
@@ -110,7 +135,7 @@ Electronics Inventory is a cutting-edge SAAS webapp that efficiently organizes e
 
 - Data Associations - Associating user data with the respective campsites and comments using the reference method.
 
-- Render.com - Cloud platform as a service used as a web application deployment model.
+- Render - Cloud platform as a service used as a web application deployment model.
 
 - AWS - Mongodb is hosted on Amazon ec2 instance.
 
@@ -160,11 +185,27 @@ and you will have the development version of the backend (server) application ru
 
 `localhost:3500`
 
+You will also need to setup a few environmental constants with a .env file like this:
+
+```
+NODE_ENV=development
+DATABASE_URI=mongoURI
+ACCESS_TOKEN_SECRET=accessTokenSecret
+REFRESH_TOKEN_SECRET=refreshTokenSecret
+CLOUDINARY_CLOUD_NAME=cloudinaryCloudName
+CLOUDINARY_KEY=cloudinaryKey
+CLOUDINARY_SECRET=cloudinarySecret
+CLIENT_URL = http://localhost:3000/
+SERVER_URL= http://localhost:3500/
+```
+
+and then modify your "/config/allowedOrigins.js" file to suit your particular requirements.
+
 <a name="folder-structure"></a>
 
 ## Folder Structure
 
-**Backend File Structure**
+**Backend (Server) File Structure**
 
 ```
 /electronics-inventory-backend
@@ -210,284 +251,292 @@ Views are responsible for displaying output to the user interface as HTML pages,
 
 Controllers are responsible for coordinating models and views by responding to user input and making changes to data when required. It acts as a bridge between view layer (user interface) and model layer(data access layer). Controllers also contain request handlers that interpret requests coming from users via URLs/HTTP methods such as GET/POST.
 
-**Client Side Layout**
+**Client (Frontend) Side Layout**
 
 ```
-/client
-    /node_modules
-    /public
-        /favicon.ico
-        /index.html
-    /src
-        /components
-            /CreateModal
-                /CreateModal.js
-            /EditModal
-                /EditModal.js
-            /InventoryItem
-                /InventoryItem.js
-            /LoadingDefault
-                /LoadingDefault.js
-            /LoadingIcon
-                /LoadingIcon.js
-            /OrderItem
-                /OrderItem.js
-            /OrderModal
-                /OrderModal.js
-            /popupModals
-                /confirmModal.js
-            /SideBar
-                /MobileSideBar.js
-                /SideBar.js
-            /UserItem
-                /UserItem.js
-            /VariantComponents
-                /AddVariant.js
-                /CurrentVariant.js
+/electronics-inventory-frontend
+    /app
+        /api
+            /apiSlice.js
+        /settings
+            /settingsSlice.js
+        /store.js
+    /components
+        /AddRemoveLayout.jsx
+        /Cards.jsx
+        /Check.jsx
+        /Clear.jsx
+        /CustomerReviewCard.jsx
+        /CustomerReviews.jsx
+        /DashCards.jsx
+        /DashFooter.jsx
+        /DashHeader.jsx
+        /DashLayout.jsx
+        /DashMain.jsx
+        /Experience.jsx
+        /Features.jsx
+        /FilePicker.jsx
+        /FilesList.jsx
+        /ImagePicker.jsx
+        /Layout.jsx
+        /LoadingPage.jsx
+        /NewSignup.jsx
+        /Office.jsx
+        /OutletLoadingPage.jsx
+        /PartCard.jsx
+        /Plans.jsx
+        /Pricing.jsx
+        /Public.jsx
+        /ReactGridLayout.jsx
+    /config
+        /roles.js
+    /features
+        /auth
+            /authApiSlice.jsx
+            /authSlice.jsx
+            /Login.jsx
+            /PersistLogin.jsx
+            /Prefetch.jsx
+            /RequireAuth.jsx
+            /SideBar.jsx
+        /charts
+            /AreaChart.jsx
+            /BarChart.jsx
+            /PieChart.jsx
+            /utils.js
+        /notes
+            /EditNote.jsx
+            /EditNoteForm.jsx
+            /NewNote.jsx
+            /Note.jsx
+            /notesApiSlice.jsx
+            /NotesList.jsx
         /pages
-            /InventoryPage.js
-            /MainPage.js
-            /SoldPage.js
-            /StatsPage.js
-            /UserPage.js
-        /utils
-            /helpers
-                /__test__
-                    /categoryStats.test.js
-                    /ordersMain.test.js
-                    /productStats.test.js
-                    /shippingStats.test.js
-                /categoryStats.herlpers.js
-                /fetchFunction.helpers.js
-                /ordersMain.helpers.js
-                /productStats.helpers.js
-                /shippingStats.helpers.js
-        /App.js
-        /index.css
+            /CustomerGallery.jsx
+            /HeroImage.jsx
+            /LandingPage.jsx
+            /LoginFooter.jsx
+            /LoginHeader.jsx
+        /parts
+            /EditPart.jsx
+            /EditPartForm.jsx
+            /Newpart.jsx
+            /NewPartForm.jsx
+            /Part.jsx
+            /partsApiSlice.jsx
+            /PartsList.jsx
+            /partsSlice.jsx
+            /ViewPart.jsx
+        /users
+            /EditUser.jsx
+            /NewUserForm.jsx
+            /User.jsx
+            /usersApiSlice.jsx
+            /UsersList.jsx
+    /hooks
+        /useAuth.js
+        /usePersist.js
+    /utils
         /index.js
-        /reportWebVitals.js
-        /setupTests.js
-    /.gitignore
-    /package-lock.json
-    /package.json
-    /postcss.config.js
-    /README.md
-    /tailwind.config.js
+    /error-page.jsx
+    /index.jsx
 ```
 
-Now that I've shown off the bones of the project, let me show you a bit of the brains behind it all.
+Now that I've displayed the basics of the project, let me demonstrate some of its more intricate features.
 
 <a name="database-architecture"></a>
 
 ## Database Architecture
 
-![Database schema diagram](client/public/images/ShopfrontdbDiagram.png)
+(https://electronics-inventory-server.onrender.com/api-docs/)
 
-This design had been a bit tricky throughout its implementation however it should be fairly self explanatory. `Category` has many `clothing_item` which contains `color` and by extension `clothing_stock`. Color in this case refers to any sort of variant you can have on your clothing item.
-
-`Order` belongs to `user` and contains `shipping`. Users create their `user` model before checkout and their order is assigned to that model. The shipping also gets attached depending on which shipping is chosen.
-
-So now that we have discussed the way the backend works let me go over the frontend.
-
-<a name="API Payload"></a>
+<a name="api-payload"></a>
 
 ## API Payload
 
-```js
-const CreatePayload = {
-  name: "Test Item",
-  price: 200,
-  description: "This is an update test item",
-  color: [{ color: "purple" }, { color: "orange" }, { color: "black" }],
-  clothing_stock: [
-    { xs: 2, s: 40, m: 22, l: 13, xl: 12 },
-    { xs: 2, s: 40, m: 22, l: 13, xl: 12 },
-    { xs: 2, s: 40, m: 22, l: 13, xl: 12 },
+```json
+{
+  "_id": { "$oid": "642affe8f215fc42000f1a5d" },
+  "user": { "$oid": "63e2d7733fe329d74d72c49d" },
+  "name": "NPN type transistors",
+  "description": "It is an NPN type transistor with an operating temperature range of -55 to 150 degrees Celsius. The component can dissipate 625 mW of power, giving it good thermal control for not being a MOSFET, which is designed for thermal dissipation.",
+  "qty": { "$numberInt": "6" },
+  "partType": "Transistor",
+  "createdAt": { "$date": { "$numberLong": "1680539624864" } },
+  "updatedAt": { "$date": { "$numberLong": "1693358908403" } },
+  "ticket2": { "$numberInt": "513" },
+  "__v": { "$numberInt": "49" },
+  "images": [
+    {
+      "_id": "e9a468f7479c58b8f17dd1dc384c77a9",
+      "url": "http://res.cloudinary.com/dv6keahg3/image/upload/f_auto/q_auto/v1681347133/ElectronicsInventory/wzqkpczsn7sbehz7yzeu.png",
+      "fileName": "ElectronicsInventory/wzqkpczsn7sbehz7yzeu"
+    },
+    {
+      "_id": "b67495ca9fd06be537a7705a9beedd72",
+      "url": "http://res.cloudinary.com/dv6keahg3/image/upload/v1681347160/ElectronicsInventory/iierofxtq7w73ds73xka.png",
+      "fileName": "ElectronicsInventory/iierofxtq7w73ds73xka"
+    }
   ],
-};
+  "partNumber": "PN2222A",
+  "lotId": "XYZ123",
+  "serialNumber": "1234",
+  "manufacturer": "ON Semiconductors",
+  "updatedBy": "DEMO",
+  "mfgDate": "2023-03-12",
+  "backOrder": { "$numberInt": "2" },
+  "vendorName": "Smiths Supplies",
+  "partPackage": "Thru hole",
+  "partLocation": "A3",
+  "deletedImages": [],
+  "cost": { "$numberDouble": "7.89" },
+  "createdBy": "Josh"
+}
 ```
 
-Above is an example of the payload being sent to the backend upon creating an item. The `color` array is made up of colors/variants that are added while the `clothing_stock` array is made up of the corresponding stock values. Because of this the lengths of `color` and `clothing_stock` arrays are the same. Each array item is its own row being added into the database. The parent object `clothing_item` is made up of the `name`, `price`, and `description` key value pairs and is created first when sent to the API. From here a `clothing_id` will be sent to the `color` and `clothing_stock` objects upon their creation to point to the parent `clothing_item` they describe.
+Above is an example of the payload that is sent upon making a `POST` request to the /parts route effectively creating a new part entry in the DB by utilizing the createNewPart controller.
 
-```js
-const EditPayload = {
-  clothing_id: 1,
-  name: "Test Item",
-  price: 200,
-  description: "This is an update test item",
-  color: [
-    { color: "purple", id: 1 },
-    { color: "orange", id: 2 },
-    { color: "black", id: 3 },
-  ],
-  clothing_stock: [
-    { xs: 2, s: 40, m: 22, l: 13, xl: 12, id: 1 },
-    { xs: 2, s: 40, m: 22, l: 13, xl: 12, id: 2 },
-    { xs: 2, s: 40, m: 22, l: 13, xl: 12, id: 3 },
-  ],
-  added_color: [{ color: "testing", xs: 2, s: 40, m: 22, l: 13, xl: 12 }],
-  deleted_color: [{ color_id: 1, stock_id: 2 }],
-};
+```json
+{
+  "_id": { "$oid": "63e2d7733fe329d74d72c49d" },
+  "username": "Josh",
+  "password": "$secret_password",
+  "roles": ["Employee", "Manager", "Admin"],
+  "active": true,
+  "__v": { "$numberInt": "1" },
+  "colorMode": "",
+  "partsListView": "Table"
+}
 ```
 
-Above is an example of the payload that is sent upon making a `PUT` request to the API. The main differences being the presence of the `clothing_id` and `id` tags that were not found in the `CreatePayload` object. These of course are needed to get reference to the objects being updated. Now the way that this payload works is a lot more intricate than the previous one. It essentially starts out as a bare bones object until an edit is made to the item.
+Above is an example of the payload that is sent upon making a `POST` request to the /users route effectively creating a new user in the DB by utilizing the createNewUser controller.
 
-```js
-const EditPayload = {
-  clothing_id: 1,
-  name: "Test Item",
-  price: 200,
-  description: "This is an update test item",
-  color: [],
-  clothing_stock: [],
-  added_color: [],
-  deleted_color: [],
-};
+```json
+{
+  "_id": { "$oid": "6425b2d01dd8b0dbf4b35408" },
+  "user": { "$oid": "63e2d7733fe329d74d72c49d" },
+  "title": "Purchase 10pc - 240V 50A transformers",
+  "text": "Per spec: 36F-6908492 (Allied Motors)",
+  "completed": false,
+  "createdAt": { "$date": { "$numberLong": "1680192208331" } },
+  "updatedAt": { "$date": { "$numberLong": "1692809451199" } },
+  "ticket": { "$numberInt": "516" },
+  "__v": { "$numberInt": "0" }
+}
 ```
 
-Without making any changes the payload will be seen as it is above. Making changes to colors that are already on the `clothing_item` will add the change into the `color` array and as such will act in an update. Same will happen with the corresponding `clothing_stock` array. If a color is added it will be added into the `added_color` array and as such will be treated as a create.
+Above is an example of the payload that is sent upon making a `POST` request to the /notes route effectively creating a new note in the DB by utilizing the createNewNote controller.
 
-```js
-added_color: [{ color: "testing", xs: 2, s: 40, m: 22, l: 13, xl: 12 }];
-```
-
-The `added_color` array handles the creation of both the `color` and `clothing_stock` with the color coming first and the stock values second, shown above.
-
-```js
-deleted_color: [{ color_id: 1, stock_id: 2 }];
-```
-
-The `deleted_color` array handles deletion of colors. Once a color is deleted its id as well as stock id get stored as an object in the `deleted_color` array, shown above. This data is all that is needed to grab the rows and delete them.
-
-This system took a while to figure out and ultimately allows for editing, creation, and deletion of not only a `clothing_item` but simultaneously its `color` and by extension its `clothing_stock` utilizing a single payload. The arrays are handled in the API by **ForEach** and **For** loops allowing to check array lengths and if, for example, the `deleted_color` method contains no values then skip that function entirely.
-
-<a name="usage-homepage"></a>
+<a name="usage-home-page"></a>
 
 ## Usage - Home Page
 
-![Home Page Image](client/public/images/HomePage.PNG)
+![Home Page Image](https://raw.githubusercontent.com/joshl26/joshl26/main/assets/Laptop_el-in_1.png)
 
-This is the home page of the content management system dashboard. This page shows a general overview of your shop and gives some import data from each of the tabs listed in the sidebar. Clicking any of the links will take you to their respective page and function the same as if you were to click them on the sidebar.
+This is the home page of the electronics inventory system dashboard. Clicking any of the links on the lefthand sidebar will take you to their respective page.
 
-<a name="usage-inventory"></a>
+<a name="usage-parts-list"></a>
 
-## Usage - Inventory
+## Usage - Parts List Page
 
-**Inventory Page**
-![Inventory Page Image](client/public/images/InventoryPage.PNG)
+**Parts List Page**
+![Partslist Page Image](https://raw.githubusercontent.com/joshl26/joshl26/main/assets/Laptop_el-in.png)
 
-While in the inventory page tab, you will be met with your entire inventory. This includes all of the clothing_item objects you have created as well as their variants/colors. For the first clothing item listed, in order from left to right, you can see the item name, its price, and the total stock. Below that is a list of colors. Clicking on a color will open up a tab displaying all of the current stock numbers and their correlating sizes.
+While in the inventory page tab, you will be met with your entire electronics inventory in table form. Clicking on a part row in table will open up a new window displaying all of the current information regarding that specific part.
 
-**Edit Inventory Modal**
-![Edit Inventory Modal Image](client/public/images/InventoryEdit.PNG)
+<a name="usage-new-part"></a>
 
-Clicking on the edit button to the far left will spawn a modal with all of the selected clothing item's data. From here you can edit all of the various attributes involved with the creation of a clothing item. This includes colors/variants as well as stock. The way I created the payload to handle this particular method of editing may be a bit far fetched but it is working and works to scale.
+## Usage - New Part Page
 
-To add a color click the plus button in the far most bottom left corner of the modal. Clicking the close button will exit the modal without saving any currently made changes, and clicking the save button will submit the changes made.
+**Create Part Page**
+![Create Part Page Image](https://raw.githubusercontent.com/joshl26/joshl26/main/assets/Laptop_el-in_2.png)
 
-**Delete Color Modal**
-![Delete Color Modal Image](client/public/images/DeleteColor.PNG)
+<a name="usage-edit-part"></a>
 
-Upon clicking the red minus button found below each color you will be met with another modal asking if you would like to confirm the deletion of the color. Selecting **Delete** will remove the color and **cancel** will close the modal without any changes.
+## Usage - Edit Part Page
 
-**Create Item Modal**
-![Create Item Modal Image](client/public/images/CreateItemModal.PNG)
+**Edit Part Page**
+![Edit Part Page Image](https://raw.githubusercontent.com/joshl26/joshl26/main/assets/Laptop_el-in_2.png)
 
-Going back to the **Inventory Page** and clicking the **Add Item** button in the bottom right corner you will be met with a modal similar to the **Edit Inventory Modal** however this one is completely empty and yours to fill out. The functionalities are the exact same between the two modals.
+<a name="usage-users-list"></a>
 
-**Delete Item Modal**
-![Delete Item Modal Image](client/public/images/DeleteItemModal.PNG)
+## Usage - Users List Page
 
-Selecting the **Delete** button to the right of the **Edit** button found to the top right of each clothing item will bring up a modal asking "Are You Sure You Want To Delete This Item?". Selecting **Delete** will remove the selected clothing item and selecting cancel will close the modal without any changes.
+**Users List Page**
+![Userslist Page Image](https://raw.githubusercontent.com/joshl26/joshl26/main/assets/Laptop_el-in.png)
 
-<a name="Usage - Sold"></a>
+<a name="usage-new-user"></a>
 
-## Usage - Sold
+## Usage - New User Page
 
-**Sold Page**
-![Sold page Image](client/public/images/SoldPage.PNG)
+**Create User Page**
+![Create User Page Image](https://raw.githubusercontent.com/joshl26/joshl26/main/assets/Laptop_el-in_2.png)
 
-Clicking on the **Sold** text in the sidebar will take you to the sold page where you will see a listing of all of your sales/orders. In order from right to left you'll see the item name, price, shipping type, date ordered, order number, fulfilled checkbox and a button to click for more details on that order.
+<a name="usage-edit-user"></a>
 
-Clicking the checkbox to either check fulfilled or uncheck will immediately edit the selected order item. If checked then **order_status** will be set to true, and if unchecked it will be set to false.
+## Usage - Edit User Page
 
-![Order modal Image](client/public/images/OrderModal.PNG)
+**Edit User Page**
+![Edit User Page Image](https://raw.githubusercontent.com/joshl26/joshl26/main/assets/Laptop_el-in_2.png)
 
-Clicking the **Details** button at the far right will open up a modal with the information corresponding to the selected order. This shows even more information and is a sort of receipt for the shop owner to view.
+<a name="usage-notes-list"></a>
 
-<a name="Usage - Users"></a>
+## Usage - Notes List Page
 
-## Usage - Users
+**Notes List Page**
+![Noteslist Page Image](https://raw.githubusercontent.com/joshl26/joshl26/main/assets/Laptop_el-in.png)
 
-**Users Page**
-![Users page Image](client/public/images/UsersPage.PNG)
+## Usage - New Note Page
 
-This page lists the users in your store and displays the orders per user. This page is fairly similar to the **Sold Page** in that it has about the same order information however the top of each section has the users name, email, and join date.
+**New Note Page**
+![New Note Page Image](https://raw.githubusercontent.com/joshl26/joshl26/main/assets/Laptop_el-in_2.png)
 
-Clicking the details button next an order will open a modal with the same information found in the **Sold Page** order modal.
+<a name="usage-edit-part-info"></a>
 
-<a name="Usage - Statistics"></a>
+## Usage - Edit Note Page
 
-## Usage - Statistics
+**Edit Note Page**
+![Edit Note Page Image](https://raw.githubusercontent.com/joshl26/joshl26/main/assets/Laptop_el-in_2.png)
 
-**Statistics Page**
-![Statistics page top Image](client/public/images/StatisticsPage1.PNG)
+<a name="usage-tablet"></a>
 
-Clicking on the **Statistics** text in the sidebar will take you to the statistics page. This page displays useful numbers in relationship to sales as well as costs to take into consideration when running your business.
+## Usage - Tablet
 
-This page utilizes chartjs and react-chartjs-2 to create these really nice looking graphs.
+![Tablet Horizontal View Home page](https://raw.githubusercontent.com/joshl26/joshl26/main/assets/Ipad_Electronics_Inventory_Horizontal.png)
 
-At the top you'll see your income per day and below that you can see your total costs and total income. These numbers are color coded and include the shipping income, shipping costs, item income, and item costs.
-
-![Statistics page midway Image](client/public/images/StatisticsPage2.PNG)
-
-Moving to the middle of the page you'll see income by category. This is displayed in a polar area chart. You can visualize sale percentage as well as view the actual amount from just looking.
-
-![Statistics page bottom Image](client/public/images/StatisticsPage3.PNG)
-
-At the bottom of the page is where you will find the stock numbers of all the inventory in your store. Total stock being the culmination of everything you are selling. Unique stock is the amount of individual items you are selling, not including their colors/variants. Then you have your stock per category which is generated based on the categories you have set up.
-
-<a name="Usage - Mobile"></a>
-
-## Usage - Mobile
-
-While there aren't a lot of discrepancies between the desktop and mobile versions of the application there is one big difference.
-
-![Mobile View Inventory page](client/public/images/MobileView1.PNG)
-
-The sidebar is now hidden and is controlled by a button in the top right hand corner. Clicking this button will open up the sidebar and you can navigate through the pages from there.
-
-![Mobile View Inventory page with opened sidebar](client/public/images/MobileView2.PNG)
-
-The sidebar layout is the same just instead of text there are now icons representing each page you can navigate to.
-
-<a name="Testing"></a>
+<a name="testing"></a>
 
 ## Testing
 
-While my tests don't have the most coverage or test any of the currently setup react portions of my project. I do have some unit tests which run checks on the helper functions to ensure that things are not going wrong when information comes from the backend into the frontend.
+I have written some unit tests to check the helper functions in my project, which ensure that information is correctly transferred from the backend to the frontend. Although these tests do not cover all aspects of my project or test any of its React components, they are still useful for verifying correct functionality.
 
-Tests can be found in the client folder `/client/src/utils/helpers/__test__`
+Tests can be found in the electronics-inventory-frontend folder `/electronics-inventory-frontend/src/__tests__`
 
-While in the root folder, running `cd client && npm run test` in the terminal will run the tests I currently have setup.
+While in the root folder, running `npm run test` in the terminal will run the tests I currently have setup.
+
+<a name="screenshots"></a>
 
 ## Screenshots
 
-> HomePage
-> ![home](https://raw.githubusercontent.com/joshl26/joshl26/main/assets/electronicsInventory_1.png)
+**Home Page**
+![Home page](https://raw.githubusercontent.com/joshl26/joshl26/main/assets/electronicsInventory_1.png)
 
-> Customers
-> ![All campgrounds](https://raw.githubusercontent.com/joshl26/joshl26/main/assets/electronicsInventory_2.png)
+**Home Page Continued**
+![Home page](https://raw.githubusercontent.com/joshl26/joshl26/main/assets/electronicsInventory_2.png)
 
-> Electronics Inventory Dashboard
-> ![showPage](https://raw.githubusercontent.com/joshl26/joshl26/main/assets/electronicsInventory_4.png)
+**User Login Page**
+![Login page](https://raw.githubusercontent.com/joshl26/joshl26/main/assets/electronicsInventory_3.png)
 
-> Login & Register page
-> ![login,register](https://raw.githubusercontent.com/joshl26/joshl26/main/assets/electronicsInventory_3.png)
+**Dashboard**
+![showPage](https://raw.githubusercontent.com/joshl26/joshl26/main/assets/Laptop_el-in_1.png)
+
+<a name="author"></a>
 
 ## Author
 
-👤 **Joshua Lehman**
+**Joshua Lehman**
+
+<a name="socials"></a>
 
 ## Portfolio
 
@@ -501,28 +550,19 @@ While in the root folder, running `cd client && npm run test` in the terminal wi
 
 - [joshrlehman](https://www.linkedin.com/in/joshrlehman/)
 
-## 🤝 Contributing
+<a name="contributions"></a>
 
-<a name="Contributions"></a>
+## Contributing
+
 Contributions, issues and feature requests are welcome!<br />Feel free to check [issues page](https://github.com/joshl26/electronics-inventory-frontend/issues). You can also take a look at the [contributing guide](https://github.com/joshl26/electronics-inventory-frontend/blob/master/CONTRIBUTING.md).
 
 ## Show your support
 
 Give a ⭐️ if this project helped you!
 
-## 📝 License
+<a name="license"></a>
+
+## License
 
 Copyright © 2023 [Joshua Lehman](https://github.com/joshl26).<br />
 This project is [ISC](https://github.com/joshl26/electronics-inventory-frontend/blob/master/LICENSE) licensed.
-
-```mermaid
-sequenceDiagram
-Alice ->> Bob: Hello Bob, how are you?
-Bob-->>John: How about you John?
-Bob--x Alice: I am good thanks!
-Bob-x John: I am good thanks!
-Note right of John: Bob thinks a long<br/>long time, so long<br/>that the text does<br/>not fit on a row.
-
-Bob-->Alice: Checking with John...
-Alice->John: Yes... John, how are you?
-```
