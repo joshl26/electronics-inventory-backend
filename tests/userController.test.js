@@ -28,8 +28,8 @@ describe('userController (unit)', () => {
     // mock chain: find().select("-password").lean()
     User.find.mockReturnValue({
       select: jest.fn().mockReturnValue({
-        lean: jest.fn().mockResolvedValue(fakeUsers)
-      })
+        lean: jest.fn().mockResolvedValue(fakeUsers),
+      }),
     });
 
     const req = httpMocks.createRequest();
@@ -56,13 +56,13 @@ describe('userController (unit)', () => {
     User.findOne.mockReturnValue({
       collation: jest.fn().mockReturnValue({
         lean: jest.fn().mockReturnValue({
-          exec: jest.fn().mockResolvedValue({ username: 'existing' })
-        })
-      })
+          exec: jest.fn().mockResolvedValue({ username: 'existing' }),
+        }),
+      }),
     });
 
     const req = httpMocks.createRequest({
-      body: { username: 'existing', password: 'p' }
+      body: { username: 'existing', password: 'p' },
     });
     const res = makeRes();
 
@@ -77,9 +77,9 @@ describe('userController (unit)', () => {
     User.findOne.mockReturnValue({
       collation: jest.fn().mockReturnValue({
         lean: jest.fn().mockReturnValue({
-          exec: jest.fn().mockResolvedValue(null)
-        })
-      })
+          exec: jest.fn().mockResolvedValue(null),
+        }),
+      }),
     });
     bcrypt.hash.mockResolvedValue('hashedPwd');
 
@@ -87,7 +87,7 @@ describe('userController (unit)', () => {
     User.create.mockResolvedValue(createdUser);
 
     const req = httpMocks.createRequest({
-      body: { username: 'newuser', password: 'p' }
+      body: { username: 'newuser', password: 'p' },
     });
     const res = makeRes();
 
@@ -96,7 +96,9 @@ describe('userController (unit)', () => {
     expect(bcrypt.hash).toHaveBeenCalled();
     expect(User.create).toHaveBeenCalled();
     expect(res.status).toHaveBeenCalledWith(201);
-    expect(res.json).toHaveBeenCalledWith(expect.objectContaining({ message: expect.stringContaining('New user') }));
+    expect(res.json).toHaveBeenCalledWith(
+      expect.objectContaining({ message: expect.stringContaining('New user') }),
+    );
   });
 
   test('updateUser: missing/invalid fields returns 400', async () => {
@@ -112,7 +114,7 @@ describe('userController (unit)', () => {
     User.findById.mockReturnValue({ exec: jest.fn().mockResolvedValue(null) });
 
     const req = httpMocks.createRequest({
-      body: { id: '1', username: 'u', roles: ['Employee'], active: true }
+      body: { id: '1', username: 'u', roles: ['Employee'], active: true },
     });
     const res = makeRes();
 
@@ -125,20 +127,24 @@ describe('userController (unit)', () => {
   test('updateUser: duplicate username returns 409', async () => {
     const existing = { _id: '2', username: 'dup' };
     // findById returns user being updated
-    const userObj = { _id: '1', username: 'orig', save: jest.fn().mockResolvedValue({ username: 'dup' }) };
+    const userObj = {
+      _id: '1',
+      username: 'orig',
+      save: jest.fn().mockResolvedValue({ username: 'dup' }),
+    };
     User.findById.mockReturnValue({ exec: jest.fn().mockResolvedValue(userObj) });
 
     // findOne returns a duplicate with a different _id
     User.findOne.mockReturnValue({
       collation: jest.fn().mockReturnValue({
         lean: jest.fn().mockReturnValue({
-          exec: jest.fn().mockResolvedValue(existing)
-        })
-      })
+          exec: jest.fn().mockResolvedValue(existing),
+        }),
+      }),
     });
 
     const req = httpMocks.createRequest({
-      body: { id: '1', username: 'dup', roles: ['Employee'], active: true }
+      body: { id: '1', username: 'dup', roles: ['Employee'], active: true },
     });
     const res = makeRes();
 
@@ -155,7 +161,7 @@ describe('userController (unit)', () => {
       active: true,
       colorMode: 'light',
       partsListView: 'list',
-      save: jest.fn().mockResolvedValue({ username: 'updated' })
+      save: jest.fn().mockResolvedValue({ username: 'updated' }),
     };
     User.findById.mockReturnValue({ exec: jest.fn().mockResolvedValue(userObj) });
 
@@ -163,9 +169,9 @@ describe('userController (unit)', () => {
     User.findOne.mockReturnValue({
       collation: jest.fn().mockReturnValue({
         lean: jest.fn().mockReturnValue({
-          exec: jest.fn().mockResolvedValue(null)
-        })
-      })
+          exec: jest.fn().mockResolvedValue(null),
+        }),
+      }),
     });
 
     const req = httpMocks.createRequest({
@@ -175,15 +181,17 @@ describe('userController (unit)', () => {
         roles: ['Admin'],
         active: false,
         colorMode: 'dark',
-        partsListView: 'grid'
-      }
+        partsListView: 'grid',
+      },
     });
     const res = makeRes();
 
     await userController.updateUser(req, res);
 
     expect(userObj.save).toHaveBeenCalled();
-    expect(res.json).toHaveBeenCalledWith(expect.objectContaining({ message: expect.stringContaining('updated') }));
+    expect(res.json).toHaveBeenCalledWith(
+      expect.objectContaining({ message: expect.stringContaining('updated') }),
+    );
   });
 
   test('deleteUser: missing id returns 400', async () => {
@@ -200,8 +208,8 @@ describe('userController (unit)', () => {
     // mock Note.findOne().lean().exec returns a note
     Note.findOne.mockReturnValue({
       lean: jest.fn().mockReturnValue({
-        exec: jest.fn().mockResolvedValue({ title: 'note1' })
-      })
+        exec: jest.fn().mockResolvedValue({ title: 'note1' }),
+      }),
     });
 
     const req = httpMocks.createRequest({ body: { id: '1' } });
@@ -217,8 +225,8 @@ describe('userController (unit)', () => {
     // No assigned notes
     Note.findOne.mockReturnValue({
       lean: jest.fn().mockReturnValue({
-        exec: jest.fn().mockResolvedValue(null)
-      })
+        exec: jest.fn().mockResolvedValue(null),
+      }),
     });
     // User not found
     User.findById.mockReturnValue({ exec: jest.fn().mockResolvedValue(null) });
@@ -235,13 +243,13 @@ describe('userController (unit)', () => {
     // No assigned notes
     Note.findOne.mockReturnValue({
       lean: jest.fn().mockReturnValue({
-        exec: jest.fn().mockResolvedValue(null)
-      })
+        exec: jest.fn().mockResolvedValue(null),
+      }),
     });
 
     // User found and deleteOne returns result with username/_id
     const userObj = {
-      deleteOne: jest.fn().mockResolvedValue({ username: 'gone', _id: '1' })
+      deleteOne: jest.fn().mockResolvedValue({ username: 'gone', _id: '1' }),
     };
     User.findById.mockReturnValue({ exec: jest.fn().mockResolvedValue(userObj) });
 

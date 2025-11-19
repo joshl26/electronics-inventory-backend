@@ -21,5 +21,5 @@ module.exports = {
     for (const key in collections) {
       await collections[key].deleteMany({});
     }
-  }
+  },
 };

@@ -1,5 +1,5 @@
-const mongoose = require("mongoose");
-const crypto = require("crypto");
+const mongoose = require('mongoose');
+const crypto = require('crypto');
 
 const apiKeySchema = new mongoose.Schema({
   key: {
@@ -11,10 +11,12 @@ const apiKeySchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  permissions: [{
-    type: String,
-    enum: ['read', 'write', 'delete', 'admin']
-  }],
+  permissions: [
+    {
+      type: String,
+      enum: ['read', 'write', 'delete', 'admin'],
+    },
+  ],
   active: {
     type: Boolean,
     default: true,
@@ -28,8 +30,8 @@ const apiKeySchema = new mongoose.Schema({
 });
 
 // Static method to generate API key
-apiKeySchema.statics.generateKey = function() {
+apiKeySchema.statics.generateKey = function () {
   return crypto.randomBytes(32).toString('hex');
 };
 
-module.exports = mongoose.model("APIKey", apiKeySchema);
+module.exports = mongoose.model('APIKey', apiKeySchema);

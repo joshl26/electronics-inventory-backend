@@ -38,7 +38,9 @@ describe('partsController (unit)', () => {
     Part.find.mockReturnValue({ lean: jest.fn().mockResolvedValue(parts) });
 
     const user = { username: 'user1' };
-    User.findById.mockReturnValue({ lean: jest.fn().mockReturnValue({ exec: jest.fn().mockResolvedValue(user) }) });
+    User.findById.mockReturnValue({
+      lean: jest.fn().mockReturnValue({ exec: jest.fn().mockResolvedValue(user) }),
+    });
 
     const req = httpMocks.createRequest();
     const res = makeRes();
@@ -62,9 +64,9 @@ describe('partsController (unit)', () => {
     Part.findOne.mockReturnValue({
       collation: jest.fn().mockReturnValue({
         lean: jest.fn().mockReturnValue({
-          exec: jest.fn().mockResolvedValue({ name: 'exists' })
-        })
-      })
+          exec: jest.fn().mockResolvedValue({ name: 'exists' }),
+        }),
+      }),
     });
 
     const req = httpMocks.createRequest({ body: { user: 'u', name: 'exists', description: 'd' } });
@@ -80,15 +82,15 @@ describe('partsController (unit)', () => {
     Part.findOne.mockReturnValue({
       collation: jest.fn().mockReturnValue({
         lean: jest.fn().mockReturnValue({
-          exec: jest.fn().mockResolvedValue(null)
-        })
-      })
+          exec: jest.fn().mockResolvedValue(null),
+        }),
+      }),
     });
 
     Part.create.mockResolvedValue({ _id: 'new' });
 
     const req = httpMocks.createRequest({
-      body: { user: 'u', name: 'new', description: 'd' }
+      body: { user: 'u', name: 'new', description: 'd' },
     });
     const res = makeRes();
 
@@ -112,7 +114,7 @@ describe('partsController (unit)', () => {
     Part.findById.mockReturnValue({ exec: jest.fn().mockResolvedValue(null) });
 
     const req = httpMocks.createRequest({
-      body: { id: '1', user: 'u', name: 'p', description: 'd' }
+      body: { id: '1', user: 'u', name: 'p', description: 'd' },
     });
     const res = makeRes();
 
@@ -130,13 +132,13 @@ describe('partsController (unit)', () => {
     Part.findOne.mockReturnValue({
       collation: jest.fn().mockReturnValue({
         lean: jest.fn().mockReturnValue({
-          exec: jest.fn().mockResolvedValue(duplicate)
-        })
-      })
+          exec: jest.fn().mockResolvedValue(duplicate),
+        }),
+      }),
     });
 
     const req = httpMocks.createRequest({
-      body: { id: '1', user: 'u', name: 'dup', description: 'd' }
+      body: { id: '1', user: 'u', name: 'dup', description: 'd' },
     });
     const res = makeRes();
 
@@ -151,20 +153,20 @@ describe('partsController (unit)', () => {
       user: 'u',
       name: 'old',
       description: 'd',
-      save: jest.fn().mockResolvedValue({ name: 'updated' })
+      save: jest.fn().mockResolvedValue({ name: 'updated' }),
     };
     Part.findById.mockReturnValue({ exec: jest.fn().mockResolvedValue(part) });
 
     Part.findOne.mockReturnValue({
       collation: jest.fn().mockReturnValue({
         lean: jest.fn().mockReturnValue({
-          exec: jest.fn().mockResolvedValue(null)
-        })
-      })
+          exec: jest.fn().mockResolvedValue(null),
+        }),
+      }),
     });
 
     const req = httpMocks.createRequest({
-      body: { id: '1', user: 'u', name: 'updated', description: 'new' }
+      body: { id: '1', user: 'u', name: 'updated', description: 'new' },
     });
     const res = makeRes();
 
@@ -180,16 +182,16 @@ describe('partsController (unit)', () => {
       name: 'old',
       description: 'd',
       deletedImages: [],
-      save: jest.fn().mockResolvedValue({ name: 'updated' })
+      save: jest.fn().mockResolvedValue({ name: 'updated' }),
     };
     Part.findById.mockReturnValue({ exec: jest.fn().mockResolvedValue(part) });
 
     Part.findOne.mockReturnValue({
       collation: jest.fn().mockReturnValue({
         lean: jest.fn().mockReturnValue({
-          exec: jest.fn().mockResolvedValue(null)
-        })
-      })
+          exec: jest.fn().mockResolvedValue(null),
+        }),
+      }),
     });
 
     cloudinary.uploader.destroy.mockResolvedValue({ result: 'ok' });
@@ -200,8 +202,8 @@ describe('partsController (unit)', () => {
         user: 'u',
         name: 'updated',
         description: 'new',
-        deletedImages: [{ fileName: 'img1' }]
-      }
+        deletedImages: [{ fileName: 'img1' }],
+      },
     });
     const res = makeRes();
 
@@ -237,7 +239,7 @@ describe('partsController (unit)', () => {
     const part = {
       name: 'toDelete',
       _id: '1',
-      deleteOne: jest.fn().mockResolvedValue({ name: 'toDelete', _id: '1' })
+      deleteOne: jest.fn().mockResolvedValue({ name: 'toDelete', _id: '1' }),
     };
     Part.findById.mockReturnValue({ exec: jest.fn().mockResolvedValue(part) });
 

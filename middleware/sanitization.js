@@ -17,16 +17,16 @@ const noSQLInjectionProtection = mongoSanitize({
 const validate = (validations) => {
   return async (req, res, next) => {
     // Run all validations
-    await Promise.all(validations.map(validation => validation.run(req)));
+    await Promise.all(validations.map((validation) => validation.run(req)));
 
     const errors = validationResult(req);
     if (errors.isEmpty()) {
       return next();
     }
 
-    res.status(400).json({ 
-      message: "Validation failed",
-      errors: errors.array() 
+    res.status(400).json({
+      message: 'Validation failed',
+      errors: errors.array(),
     });
   };
 };
@@ -46,20 +46,14 @@ const validationRules = {
     .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/)
     .withMessage('Password must contain uppercase, lowercase, and number'),
 
-  email: body('email')
-    .trim()
-    .isEmail()
-    .normalizeEmail()
-    .withMessage('Invalid email address'),
+  email: body('email').trim().isEmail().normalizeEmail().withMessage('Invalid email address'),
 
   partName: body('name')
     .trim()
     .isLength({ min: 1, max: 200 })
     .withMessage('Part name must be between 1 and 200 characters'),
 
-  quantity: body('quantity')
-    .isInt({ min: 0 })
-    .withMessage('Quantity must be a positive integer'),
+  quantity: body('quantity').isInt({ min: 0 }).withMessage('Quantity must be a positive integer'),
 };
 
 module.exports = {

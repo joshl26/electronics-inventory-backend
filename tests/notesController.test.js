@@ -36,7 +36,9 @@ describe('notesController (unit)', () => {
     Note.find.mockReturnValue({ lean: jest.fn().mockResolvedValue(notes) });
 
     const user = { username: 'user1' };
-    User.findById.mockReturnValue({ lean: jest.fn().mockReturnValue({ exec: jest.fn().mockResolvedValue(user) }) });
+    User.findById.mockReturnValue({
+      lean: jest.fn().mockReturnValue({ exec: jest.fn().mockResolvedValue(user) }),
+    });
 
     const req = httpMocks.createRequest();
     const res = makeRes();
@@ -60,9 +62,9 @@ describe('notesController (unit)', () => {
     Note.findOne.mockReturnValue({
       collation: jest.fn().mockReturnValue({
         lean: jest.fn().mockReturnValue({
-          exec: jest.fn().mockResolvedValue({ title: 'exists' })
-        })
-      })
+          exec: jest.fn().mockResolvedValue({ title: 'exists' }),
+        }),
+      }),
     });
 
     const req = httpMocks.createRequest({ body: { user: 'u', title: 'exists', text: 't' } });
@@ -78,9 +80,9 @@ describe('notesController (unit)', () => {
     Note.findOne.mockReturnValue({
       collation: jest.fn().mockReturnValue({
         lean: jest.fn().mockReturnValue({
-          exec: jest.fn().mockResolvedValue(null)
-        })
-      })
+          exec: jest.fn().mockResolvedValue(null),
+        }),
+      }),
     });
 
     Note.create.mockResolvedValue({ _id: 'new' });
@@ -108,7 +110,7 @@ describe('notesController (unit)', () => {
     Note.findById.mockReturnValue({ exec: jest.fn().mockResolvedValue(null) });
 
     const req = httpMocks.createRequest({
-      body: { id: '1', user: 'u', title: 't', text: 'txt', completed: false }
+      body: { id: '1', user: 'u', title: 't', text: 'txt', completed: false },
     });
     const res = makeRes();
 
@@ -126,13 +128,13 @@ describe('notesController (unit)', () => {
     Note.findOne.mockReturnValue({
       collation: jest.fn().mockReturnValue({
         lean: jest.fn().mockReturnValue({
-          exec: jest.fn().mockResolvedValue(duplicate)
-        })
-      })
+          exec: jest.fn().mockResolvedValue(duplicate),
+        }),
+      }),
     });
 
     const req = httpMocks.createRequest({
-      body: { id: '1', user: 'u', title: 'dup', text: 'txt', completed: false }
+      body: { id: '1', user: 'u', title: 'dup', text: 'txt', completed: false },
     });
     const res = makeRes();
 
@@ -148,20 +150,20 @@ describe('notesController (unit)', () => {
       title: 'old',
       text: 'txt',
       completed: false,
-      save: jest.fn().mockResolvedValue({ title: 'updated' })
+      save: jest.fn().mockResolvedValue({ title: 'updated' }),
     };
     Note.findById.mockReturnValue({ exec: jest.fn().mockResolvedValue(note) });
 
     Note.findOne.mockReturnValue({
       collation: jest.fn().mockReturnValue({
         lean: jest.fn().mockReturnValue({
-          exec: jest.fn().mockResolvedValue(null)
-        })
-      })
+          exec: jest.fn().mockResolvedValue(null),
+        }),
+      }),
     });
 
     const req = httpMocks.createRequest({
-      body: { id: '1', user: 'u', title: 'updated', text: 'new', completed: true }
+      body: { id: '1', user: 'u', title: 'updated', text: 'new', completed: true },
     });
     const res = makeRes();
 
@@ -197,7 +199,7 @@ describe('notesController (unit)', () => {
     const note = {
       title: 'toDelete',
       _id: '1',
-      deleteOne: jest.fn().mockResolvedValue({ title: 'toDelete', _id: '1' })
+      deleteOne: jest.fn().mockResolvedValue({ title: 'toDelete', _id: '1' }),
     };
     Note.findById.mockReturnValue({ exec: jest.fn().mockResolvedValue(note) });
 

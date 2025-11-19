@@ -10,7 +10,11 @@ const logFile = path.join(__dirname, '..', 'logs', 'securityLog.log');
 describe('securityLogger', () => {
   beforeEach(() => {
     // clean up log if exists
-    try { if (fs.existsSync(logFile)) fs.unlinkSync(logFile); } catch(e){}
+    try {
+      if (fs.existsSync(logFile)) fs.unlinkSync(logFile);
+    } catch (e) {
+      `${e}`;
+    }
   });
 
   test('writes successful login entry', () => {
@@ -22,7 +26,9 @@ describe('securityLogger', () => {
   test('handles appendFileSync failure gracefully', () => {
     // Temporarily stub appendFileSync to throw
     const realAppend = fs.appendFileSync;
-    fs.appendFileSync = () => { throw new Error('disk full'); };
+    fs.appendFileSync = () => {
+      throw new Error('disk full');
+    };
 
     // Should not throw when calling logger
     expect(() => {

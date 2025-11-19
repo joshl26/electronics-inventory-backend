@@ -80,20 +80,21 @@ describe('authController (unit)', () => {
       active: true,
       password: '65gGuChX',
       refreshTokens: [],
-      save: jest.fn().mockResolvedValue(true)
+      save: jest.fn().mockResolvedValue(true),
     };
     User.findOne.mockReturnValue({ exec: jest.fn().mockResolvedValue(fakeUser) });
     bcrypt.compare = jest.fn().mockResolvedValue(true);
 
     // Mock jwt.sign to predictable tokens
-    jwt.sign = jest.fn()
+    jwt.sign = jest
+      .fn()
       .mockImplementationOnce(() => 'access-token') // access token signing
       .mockImplementationOnce(() => 'refresh-token'); // refresh token
 
     const req = httpMocks.createRequest({
       body: { username: 'u', password: 'p' },
       ip: '1.2.3.4',
-      headers: {}
+      headers: {},
     });
     const res = makeRes();
 
@@ -104,11 +105,19 @@ describe('authController (unit)', () => {
     expect(data.accessToken).toBe('access-token');
 
     // cookie set for refresh token
-    expect(res.cookie).toHaveBeenCalledWith('jwt', 'refresh-token', expect.objectContaining({
-      httpOnly: true
-    }));
+    expect(res.cookie).toHaveBeenCalledWith(
+      'jwt',
+      'refresh-token',
+      expect.objectContaining({
+        httpOnly: true,
+      }),
+    );
     // security logger called for success
-    expect(securityLogger.logSuccessfulLogin).toHaveBeenCalledWith('u', '1.2.3.4', expect.any(String));
+    expect(securityLogger.logSuccessfulLogin).toHaveBeenCalledWith(
+      'u',
+      '1.2.3.4',
+      expect.any(String),
+    );
     // saved user got refresh token pushed
     expect(fakeUser.save).toHaveBeenCalled();
   });

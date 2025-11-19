@@ -1,6 +1,6 @@
-const Part = require("../models/Part");
-const User = require("../models/User");
-const cloudinary = require("cloudinary").v2;
+const Part = require('../models/Part');
+const User = require('../models/User');
+const cloudinary = require('cloudinary').v2;
 
 // @desc Get all parts
 // @route GET /parts
@@ -15,7 +15,7 @@ const getAllParts = async (req, res) => {
 
   // If no parts
   if (!parts?.length) {
-    return res.status(400).json({ message: "No parts found" });
+    return res.status(400).json({ message: 'No parts found' });
   }
 
   // Add username to each part before sending the response
@@ -25,7 +25,7 @@ const getAllParts = async (req, res) => {
     parts.map(async (part) => {
       const user = await User.findById(part.user).lean().exec();
       return { ...part, username: user.username };
-    })
+    }),
   );
   // console.log(partsWithUser);
   res.json(partsWithUser);
@@ -63,17 +63,17 @@ const createNewPart = async (req, res) => {
 
   // Confirm data
   if (!user || !name || !description) {
-    return res.status(400).json({ message: "All fields are required" });
+    return res.status(400).json({ message: 'All fields are required' });
   }
 
   // Check for duplicate name
   const duplicate = await Part.findOne({ name })
-    .collation({ locale: "en", strength: 2 })
+    .collation({ locale: 'en', strength: 2 })
     .lean()
     .exec();
 
   if (duplicate) {
-    return res.status(409).json({ message: "Duplicate part name" });
+    return res.status(409).json({ message: 'Duplicate part name' });
   }
 
   // Create and store the new part
@@ -101,9 +101,9 @@ const createNewPart = async (req, res) => {
 
   if (part) {
     // Created
-    return res.status(201).json({ message: "New part created" });
+    return res.status(201).json({ message: 'New part created' });
   } else {
-    return res.status(400).json({ message: "Invalid part data received" });
+    return res.status(400).json({ message: 'Invalid part data received' });
   }
 };
 
@@ -147,7 +147,7 @@ const updatePart = async (req, res) => {
 
   // Confirm data
   if (!id || !user || !name || !description) {
-    return res.status(400).json({ message: "All fields are required" });
+    return res.status(400).json({ message: 'All fields are required' });
   }
 
   // Confirm part exists to update
@@ -156,18 +156,18 @@ const updatePart = async (req, res) => {
   // console.log(part);
 
   if (!part) {
-    return res.status(400).json({ message: "Part not found" });
+    return res.status(400).json({ message: 'Part not found' });
   }
 
   // Check for duplicate name
   const duplicate = await Part.findOne({ name })
-    .collation({ locale: "en", strength: 2 })
+    .collation({ locale: 'en', strength: 2 })
     .lean()
     .exec();
 
   // Allow renaming of the original part
   if (duplicate && duplicate?._id.toString() !== id) {
-    return res.status(409).json({ message: "Duplicate part name" });
+    return res.status(409).json({ message: 'Duplicate part name' });
   }
 
   part.user = user;
@@ -215,14 +215,14 @@ const deletePart = async (req, res) => {
 
   // Confirm data
   if (!id) {
-    return res.status(400).json({ message: "Part ID required" });
+    return res.status(400).json({ message: 'Part ID required' });
   }
 
   // Confirm part exists to delete
   const part = await Part.findById(id).exec();
 
   if (!part) {
-    return res.status(400).json({ message: "Part not found" });
+    return res.status(400).json({ message: 'Part not found' });
   }
 
   const result = await part.deleteOne();

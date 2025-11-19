@@ -1,12 +1,12 @@
-const mongoose = require("mongoose");
-const AutoIncrement = require("mongoose-sequence")(mongoose);
+const mongoose = require('mongoose');
+const AutoIncrement = require('mongoose-sequence')(mongoose);
 
 const partSchema = new mongoose.Schema(
   {
     user: {
       type: mongoose.Schema.Types.ObjectId,
       required: true,
-      ref: "User",
+      ref: 'User',
     },
     name: {
       type: String,
@@ -37,37 +37,37 @@ const partSchema = new mongoose.Schema(
     },
     partLocation: {
       type: String,
-      default: "",
+      default: '',
       required: false,
     },
     partPackage: {
       type: String,
-      default: "",
+      default: '',
       required: false,
     },
     partNumber: {
       type: String,
-      default: "",
+      default: '',
       required: false,
     },
     lotId: {
       type: String,
-      default: "",
+      default: '',
       required: false,
     },
     serialNumber: {
       type: String,
-      default: "",
+      default: '',
       required: false,
     },
     manufacturer: {
       type: String,
-      default: "",
+      default: '',
       required: false,
     },
     vendorName: {
       type: String,
-      default: "",
+      default: '',
       required: false,
     },
     createdBy: {
@@ -77,11 +77,11 @@ const partSchema = new mongoose.Schema(
     updatedBy: {
       type: String,
       required: false,
-      ref: "User",
+      ref: 'User',
     },
     mfgDate: {
       type: String,
-      default: "",
+      default: '',
       required: false,
     },
     backOrder: {
@@ -97,13 +97,13 @@ const partSchema = new mongoose.Schema(
   },
   {
     timestamps: true, //Adds createdAt and updatedAt timestamp fields to part record
-  }
+  },
 );
 
 partSchema.plugin(AutoIncrement, {
-  inc_field: "ticket2",
-  id: "ticket2Nums",
+  inc_field: 'ticket2',
+  id: 'ticket2Nums',
   start_seq: 500,
 });
 
-module.exports = mongoose.model("Part", partSchema);
+module.exports = mongoose.model('Part', partSchema);

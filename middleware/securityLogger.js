@@ -29,8 +29,8 @@ function logSuccessfulLogin(username = 'unknown', ip = 'unknown', device = '') {
 
 function logSuspiciousActivity(message = 'suspicious activity', req = {}) {
   // req may be an express req object; try to extract some useful info
-  const ip = req && req.ip ? req.ip : (req && req.ipv6 ? req.ipv6 : 'unknown');
-  const url = req && req.originalUrl ? req.originalUrl : (req && req.url ? req.url : '');
+  const ip = req && req.ip ? req.ip : req && req.ipv6 ? req.ipv6 : 'unknown';
+  const url = req && req.originalUrl ? req.originalUrl : req && req.url ? req.url : '';
   const ua = req && req.headers ? req.headers['user-agent'] : '';
   const line = `Suspicious activity: msg="${message}" ip=${ip} url=${url} ua="${ua}"`;
   console.warn(line);

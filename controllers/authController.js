@@ -1,11 +1,11 @@
 // Description: Controller for authentication (login, refresh token, logout)
 // File: controllers/authController.js
 
-const User = require("../models/User");
-const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
-const asyncHandler = require("express-async-handler");
-const crypto = require("crypto");
+const User = require('../models/User');
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+const asyncHandler = require('express-async-handler');
+const crypto = require('crypto');
 const securityLogger = require('../middleware/securityLogger');
 
 // Helper function to generate tokens
@@ -18,16 +18,16 @@ const generateTokens = (user) => {
       },
     },
     process.env.ACCESS_TOKEN_SECRET,
-    { expiresIn: "15m" }
+    { expiresIn: '15m' },
   );
 
   const refreshToken = jwt.sign(
-    { 
+    {
       username: user.username,
-      tokenId: crypto.randomBytes(32).toString('hex') // Unique token ID
+      tokenId: crypto.randomBytes(32).toString('hex'), // Unique token ID
     },
     process.env.REFRESH_TOKEN_SECRET,
-    { expiresIn: "7d" }
+    { expiresIn: '7d' },
   );
 
   return { accessToken, refreshToken };
@@ -37,18 +37,17 @@ const generateTokens = (user) => {
 // @route POST /auth
 // @access Public
 const login = asyncHandler(async (req, res) => {
-
-  console.log('LOGIN DEBUG:', { 
-    body: req.body, 
+  console.log('LOGIN DEBUG:', {
+    body: req.body,
     ip: req.ip,
-    userAgent: req.headers['user-agent']
+    userAgent: req.headers['user-agent'],
   });
   const { username, password } = req.body;
   // console.log(`Login attempt for user: ${username} from IP: ${req.ip}`);
 
   if (!username || !password) {
     securityLogger.logFailedLogin(username || 'unknown', req.ip, 'Missing credentials');
-    return res.status(400).json({ message: "All fields are required" });
+    return res.status(400).json({ message: 'All fields are required' });
   }
 
   const foundUser = await User.findOne({ username }).exec();
@@ -56,19 +55,19 @@ const login = asyncHandler(async (req, res) => {
 
   if (!foundUser) {
     securityLogger.logFailedLogin(username, req.ip, 'User not found');
-    return res.status(401).json({ message: "Unauthorized" });
-  } 
+    return res.status(401).json({ message: 'Unauthorized' });
+  }
 
   if (!foundUser.active) {
     securityLogger.logFailedLogin(username, req.ip, 'Account inactive');
-    return res.status(401).json({ message: "Unauthorized" });
+    return res.status(401).json({ message: 'Unauthorized' });
   }
 
   const match = await bcrypt.compare(password, foundUser.password);
 
   if (!match) {
     securityLogger.logFailedLogin(username, req.ip, 'Invalid password');
-    return res.status(401).json({ message: "Unauthorized" });
+    return res.status(401).json({ message: 'Unauthorized' });
   }
 
   // Generate new tokens
@@ -78,7 +77,7 @@ const login = asyncHandler(async (req, res) => {
   foundUser.refreshTokens.push({
     token: refreshToken,
     deviceInfo: req.headers['user-agent'],
-    ipAddress: req.ip
+    ipAddress: req.ip,
   });
 
   // Limit to 5 active sessions per user
@@ -90,16 +89,16 @@ const login = asyncHandler(async (req, res) => {
 
   // Log successful login
   securityLogger.logSuccessfulLogin(
-    username, 
-    req.ip, 
-    req.headers['user-agent'] || 'Unknown device'
+    username,
+    req.ip,
+    req.headers['user-agent'] || 'Unknown device',
   );
 
   // Create secure cookie with refresh token
-  res.cookie("jwt", refreshToken, {
+  res.cookie('jwt', refreshToken, {
     httpOnly: true,
     secure: true,
-    sameSite: "None",
+    sameSite: 'None',
     maxAge: 7 * 24 * 60 * 60 * 1000,
   });
 
@@ -114,7 +113,7 @@ const refresh = asyncHandler(async (req, res) => {
 
   if (!cookies?.jwt) {
     securityLogger.logSuspiciousActivity('Refresh attempt without token', req);
-    return res.status(401).json({ message: "Unauthorized" });
+    return res.status(401).json({ message: 'Unauthorized' });
   }
 
   const oldRefreshToken = cookies.jwt;
@@ -122,13 +121,10 @@ const refresh = asyncHandler(async (req, res) => {
   // Verify old refresh token
   let decoded;
   try {
-    decoded = jwt.verify(
-      oldRefreshToken,
-      process.env.REFRESH_TOKEN_SECRET
-    );
+    decoded = jwt.verify(oldRefreshToken, process.env.REFRESH_TOKEN_SECRET);
   } catch (err) {
     securityLogger.logSuspiciousActivity('Invalid refresh token', req);
-    return res.status(403).json({ message: "Forbidden" });
+    return res.status(403).json({ message: 'Forbidden', error: err.message });
   }
 
   const foundUser = await User.findOne({
@@ -137,32 +133,28 @@ const refresh = asyncHandler(async (req, res) => {
 
   if (!foundUser) {
     securityLogger.logSuspiciousActivity(
-      `Refresh token for non-existent user: ${decoded.username}`, 
-      req
+      `Refresh token for non-existent user: ${decoded.username}`,
+      req,
     );
-    return res.status(401).json({ message: "Unauthorized" });
+    return res.status(401).json({ message: 'Unauthorized' });
   }
 
   // Check if refresh token exists in database
-  const tokenExists = foundUser.refreshTokens.some(
-    (rt) => rt.token === oldRefreshToken
-  );
+  const tokenExists = foundUser.refreshTokens.some((rt) => rt.token === oldRefreshToken);
 
   if (!tokenExists) {
     // Token reuse detected! Possible attack
     securityLogger.logTokenReuse(decoded.username, req.ip);
-    
+
     // Remove all refresh tokens for this user
     foundUser.refreshTokens = [];
     await foundUser.save();
-    
-    return res.status(403).json({ message: "Token reuse detected" });
+
+    return res.status(403).json({ message: 'Token reuse detected' });
   }
 
   // Remove old refresh token
-  foundUser.refreshTokens = foundUser.refreshTokens.filter(
-    (rt) => rt.token !== oldRefreshToken
-  );
+  foundUser.refreshTokens = foundUser.refreshTokens.filter((rt) => rt.token !== oldRefreshToken);
 
   // Generate new tokens (rotation)
   const { accessToken, refreshToken } = generateTokens(foundUser);
@@ -171,16 +163,16 @@ const refresh = asyncHandler(async (req, res) => {
   foundUser.refreshTokens.push({
     token: refreshToken,
     deviceInfo: req.headers['user-agent'],
-    ipAddress: req.ip
+    ipAddress: req.ip,
   });
 
   await foundUser.save();
 
   // Send new refresh token as cookie
-  res.cookie("jwt", refreshToken, {
+  res.cookie('jwt', refreshToken, {
     httpOnly: true,
     secure: true,
-    sameSite: "None",
+    sameSite: 'None',
     maxAge: 7 * 24 * 60 * 60 * 1000,
   });
 
@@ -192,7 +184,7 @@ const refresh = asyncHandler(async (req, res) => {
 // @access Public - just to clear cookie if exists
 const logout = asyncHandler(async (req, res) => {
   const cookies = req.cookies;
-  
+
   if (!cookies?.jwt) {
     return res.sendStatus(204);
   }
@@ -201,10 +193,7 @@ const logout = asyncHandler(async (req, res) => {
 
   // Verify and decode token
   try {
-    const decoded = jwt.verify(
-      refreshToken,
-      process.env.REFRESH_TOKEN_SECRET
-    );
+    const decoded = jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET);
 
     // Remove refresh token from database
     const foundUser = await User.findOne({
@@ -212,26 +201,24 @@ const logout = asyncHandler(async (req, res) => {
     }).exec();
 
     if (foundUser) {
-      foundUser.refreshTokens = foundUser.refreshTokens.filter(
-        (rt) => rt.token !== refreshToken
-      );
+      foundUser.refreshTokens = foundUser.refreshTokens.filter((rt) => rt.token !== refreshToken);
       await foundUser.save();
-      
+
       // Log logout
       securityLogger.logLogout(decoded.username, req.ip);
     }
   } catch (err) {
     // Token invalid, but still clear cookie
-    securityLogger.logSuspiciousActivity('Logout with invalid token', req);
+    securityLogger.logSuspiciousActivity(`Logout with invalid token ${err.message}`, req);
   }
 
-  res.clearCookie("jwt", { 
-    httpOnly: true, 
-    sameSite: "None", 
-    secure: true 
+  res.clearCookie('jwt', {
+    httpOnly: true,
+    sameSite: 'None',
+    secure: true,
   });
-  
-  res.json({ message: "Logged out successfully" });
+
+  res.json({ message: 'Logged out successfully' });
 });
 
 // @desc Logout from all devices
@@ -243,7 +230,7 @@ const logoutAll = asyncHandler(async (req, res) => {
   const foundUser = await User.findOne({ username }).exec();
 
   if (!foundUser) {
-    return res.status(404).json({ message: "User not found" });
+    return res.status(404).json({ message: 'User not found' });
   }
 
   // Remove all refresh tokens
@@ -255,14 +242,14 @@ const logoutAll = asyncHandler(async (req, res) => {
   securityLogger.logLogoutAll(username, req.ip);
   console.log(`User ${username} logged out from ${sessionCount} devices`);
 
-  res.clearCookie("jwt", { 
-    httpOnly: true, 
-    sameSite: "None", 
-    secure: true 
+  res.clearCookie('jwt', {
+    httpOnly: true,
+    sameSite: 'None',
+    secure: true,
   });
 
-  res.json({ 
-    message: `Logged out from all devices (${sessionCount} sessions terminated)` 
+  res.json({
+    message: `Logged out from all devices (${sessionCount} sessions terminated)`,
   });
 });
 
@@ -272,12 +259,10 @@ const logoutAll = asyncHandler(async (req, res) => {
 const getSessions = asyncHandler(async (req, res) => {
   const username = req.user; // From verifyJWT middleware
 
-  const foundUser = await User.findOne({ username })
-    .select('refreshTokens')
-    .exec();
+  const foundUser = await User.findOne({ username }).select('refreshTokens').exec();
 
   if (!foundUser) {
-    return res.status(404).json({ message: "User not found" });
+    return res.status(404).json({ message: 'User not found' });
   }
 
   // Return sanitized session info (without actual tokens)
@@ -286,12 +271,12 @@ const getSessions = asyncHandler(async (req, res) => {
     deviceInfo: rt.deviceInfo || 'Unknown device',
     ipAddress: rt.ipAddress || 'Unknown IP',
     createdAt: rt.createdAt,
-    isCurrent: req.cookies?.jwt === rt.token
+    isCurrent: req.cookies?.jwt === rt.token,
   }));
 
-  res.json({ 
+  res.json({
     sessions,
-    totalSessions: sessions.length 
+    totalSessions: sessions.length,
   });
 });
 
@@ -305,11 +290,11 @@ const revokeSession = asyncHandler(async (req, res) => {
   const foundUser = await User.findOne({ username }).exec();
 
   if (!foundUser) {
-    return res.status(404).json({ message: "User not found" });
+    return res.status(404).json({ message: 'User not found' });
   }
 
   if (sessionIndex < 0 || sessionIndex >= foundUser.refreshTokens.length) {
-    return res.status(404).json({ message: "Session not found" });
+    return res.status(404).json({ message: 'Session not found' });
   }
 
   // Remove the specific session
@@ -319,10 +304,10 @@ const revokeSession = asyncHandler(async (req, res) => {
 
   securityLogger.logSuspiciousActivity(
     `Session revoked - Device: ${revokedSession.deviceInfo}`,
-    req
+    req,
   );
 
-  res.json({ message: "Session revoked successfully" });
+  res.json({ message: 'Session revoked successfully' });
 });
 
 module.exports = {

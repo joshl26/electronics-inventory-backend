@@ -29,7 +29,7 @@ describe('Token Rotation', () => {
   beforeAll(async () => {
     // Import server module (this triggers DB connection)
     const serverModule = require('../server');
-    
+
     // If server exports the app/server instance, use it
     if (serverModule && typeof serverModule.address === 'function') {
       server = serverModule;
@@ -39,7 +39,7 @@ describe('Token Rotation', () => {
         const timeout = setTimeout(() => {
           reject(new Error('Timeout waiting for MongoDB connection'));
         }, 15000);
-        
+
         if (mongoose.connection.readyState === 1) {
           clearTimeout(timeout);
           resolve();
@@ -61,14 +61,14 @@ describe('Token Rotation', () => {
       .send({ username: 'Josh', password: '65gGuChX' });
 
     expect([200, 201]).toContain(res.status);
-    
+
     // Should receive access token in body
     expect(res.body.accessToken).toBeDefined();
-    
+
     // Should receive refresh token in cookie
     const cookies = res.headers['set-cookie'];
     expect(cookies).toBeDefined();
-    
+
     refreshToken1 = extractJwtToken(cookies);
     expect(refreshToken1).toBeDefined();
   });

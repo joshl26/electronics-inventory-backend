@@ -10,7 +10,7 @@ jest.mock('../models/APIKey', () => ({
   generateKey: jest.fn(),
   create: jest.fn(),
   find: jest.fn(),
-  findById: jest.fn()
+  findById: jest.fn(),
 }));
 
 // Mock verifyJWT as a no-op middleware
@@ -75,9 +75,8 @@ describe('apiKeyRoutes (shallow unit)', () => {
     app.use(express.json());
     app.use('/api-keys', createMockRouter());
     // Error handler
-    // eslint-disable-next-line no-unused-vars
+
     app.use((err, req, res, next) => {
-      // eslint-disable-next-line no-console
       console.error('Test captured error:', err && err.stack ? err.stack : err);
       res.status(err?.status || 500).json({ message: err?.message || 'Internal Server Error' });
     });
@@ -97,7 +96,7 @@ describe('apiKeyRoutes (shallow unit)', () => {
       key: mockKey,
       name: 'test-key',
       permissions: ['read'],
-      save: jest.fn().mockResolvedValue(true)
+      save: jest.fn().mockResolvedValue(true),
     };
     APIKey.create.mockResolvedValue(createdKey);
 
@@ -109,26 +108,26 @@ describe('apiKeyRoutes (shallow unit)', () => {
       key: mockKey,
       name: 'test-key',
       permissions: ['read'],
-      expiresAt: null
+      expiresAt: null,
     });
     expect(res.status).toBe(201);
     expect(res.body).toEqual({
       message: 'API key created',
       key: mockKey,
       name: 'test-key',
-      permissions: ['read']
+      permissions: ['read'],
     });
   });
 
   test('GET /api-keys: returns list of keys without actual key values', async () => {
     const keys = [
       { _id: '1', name: 'key1', permissions: ['read'], createdAt: new Date() },
-      { _id: '2', name: 'key2', permissions: ['write'], createdAt: new Date() }
+      { _id: '2', name: 'key2', permissions: ['write'], createdAt: new Date() },
     ];
     APIKey.find.mockReturnValue({
       select: jest.fn().mockReturnValue({
-        sort: jest.fn().mockResolvedValue(keys)
-      })
+        sort: jest.fn().mockResolvedValue(keys),
+      }),
     });
 
     const res = await request(app).get('/api-keys');
@@ -147,7 +146,7 @@ describe('apiKeyRoutes (shallow unit)', () => {
   test('DELETE /api-keys/:id: success revokes key', async () => {
     const apiKey = {
       active: true,
-      save: jest.fn().mockResolvedValue(true)
+      save: jest.fn().mockResolvedValue(true),
     };
     APIKey.findById.mockResolvedValue(apiKey);
 
