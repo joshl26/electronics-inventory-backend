@@ -1,3 +1,6 @@
+// definition of CORS options for the application
+// file: config/corsOptions.js
+
 const allowedOrigins = require("./allowedOrigins");
 
 const corsOptions = {

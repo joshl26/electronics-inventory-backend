@@ -1,3 +1,6 @@
+// defiinition of the User model using Mongoose
+// file: models/User.js
+
 const mongoose = require("mongoose");
 
 const userSchema = new mongoose.Schema({

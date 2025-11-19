@@ -1,3 +1,6 @@
+// Description: Controller for authentication (login, refresh token, logout)
+// File: controllers/authController.js
+
 const User = require("../models/User");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");

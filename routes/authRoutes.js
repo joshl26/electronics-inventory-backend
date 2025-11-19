@@ -1,3 +1,6 @@
+// defining routes for authentication: login, token refresh, and logout
+// file: routes/authRoutes.js
+
 const express = require("express");
 const router = express.Router();
 const authController = require("../controllers/authController");

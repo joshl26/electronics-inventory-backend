@@ -1,3 +1,6 @@
+// desc: Middleware to verify JWT tokens in incoming requests
+// file: middleware/verifyJWT.js
+
 const jwt = require("jsonwebtoken");
 
 const verifyJWT = (req, res, next) => {

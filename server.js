@@ -1,3 +1,6 @@
+// description: Main server file for Electronics Inventory Management System
+// file: server.js
+
 require("dotenv").config();
 const express = require("express");
 const app = express();
