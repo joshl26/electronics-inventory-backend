@@ -30,6 +30,16 @@ const userSchema = new mongoose.Schema({
     type: String,
     default: "Table",
   },
+  // NEW: Store active refresh tokens
+  refreshTokens: [{
+    token: String,
+    createdAt: {
+      type: Date,
+      default: Date.now,
+      expires: 604800 // 7 days in seconds
+    },
+    deviceInfo: String, // Optional: track which device
+    ipAddress: String   // Optional: track IP
+  }]
 });
-
 module.exports = mongoose.model("User", userSchema);
