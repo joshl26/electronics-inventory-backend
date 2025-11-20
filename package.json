@@ -23,8 +23,7 @@
     "test": "jest --coverage --runInBand --detectOpenHandles",
     "lint": "eslint . --ext .js",
     "lint:fix": "eslint . --ext .js --fix",
-    "format": "prettier --write .",
-    "prepare": "husky install"
+    "format": "prettier --write ."
   },
   "lint-staged": {
     "*.js": [
